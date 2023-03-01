@@ -2,6 +2,7 @@ package com.blablapp.blablapp
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -10,7 +11,9 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.setup_profil_activity.*
@@ -28,20 +31,24 @@ class MainActivity : AppCompatActivity() {
 
         loadDataUser()
 
-        if (this.user.linkImage.length != 0){
+        if (this.user.linkImage.isNotEmpty()){
             profilePic.setImageURI(this.user.linkImage.toUri())
+        }else{
+            profilePic.setImageResource(R.drawable.defaultpp)
         }
+
 
         pseudo.setText(this.user.pseudo)
 
         profilePic.setOnClickListener{
-            val galleryIntent = Intent(Intent.ACTION_PICK)
-            val file = getFile("image")
-            val fileProvider = FileProvider.getUriForFile(this,"com.blablapp.blablapp", file)
-            galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
-
-            galleryIntent.type = "image/*"
-            startActivityForResult(galleryIntent, 1)
+            //if permission not granted then request permission
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+            } else {
+                //permission already granted
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, 1)
+            }
         }
 
         buttonTalk.setOnClickListener {
@@ -58,13 +65,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("DEGUB", requestCode.toString())
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val imageUri = data?.data
             this.user.linkImage = uploadImageFromGallery(imageUri!!)
-
             profilePic.setImageURI(imageUri)
+        }
+    }
 
-            //Toast.makeText(this, "Image enregistrée", Toast.LENGTH_SHORT).show()
+    private fun openGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK)
+        val file = getFile("image")
+        val fileProvider = FileProvider.getUriForFile(this,"com.blablapp.blablapp", file)
+        galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
+        galleryIntent.type = "image/*"
+        startActivityForResult(galleryIntent, 1)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGallery()
+            } else {
+                Toast.makeText(this, "Permission non accordée", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -78,18 +103,17 @@ class MainActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(picturePath)
         val file = createFileBM()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, file.outputStream())
-
         return FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString()
 
     }
+
 
     @SuppressLint("SimpleDateFormat")
     private fun createFileBM(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val image = File.createTempFile(imageFileName, ".jpg", storageDir)
-        return image
+        return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
     private fun getFile(nomFichier: String): File {
