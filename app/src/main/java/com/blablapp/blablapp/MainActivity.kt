@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -41,14 +42,17 @@ class MainActivity : AppCompatActivity() {
         pseudo.setText(this.user.pseudo)
 
         profilePic.setOnClickListener{
-            //if permission not granted then request permission
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-            } else {
-                //permission already granted
+            val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.READ_MEDIA_IMAGES else android.Manifest.permission.READ_EXTERNAL_STORAGE
+            if(ContextCompat.checkSelfPermission(this, readImagePermission) == PackageManager.PERMISSION_GRANTED){
+                //permission granted
                 openGallery()
+            }else{
+                requestPermissions(arrayOf(readImagePermission), 1)
             }
+
         }
+
+
 
         buttonTalk.setOnClickListener {
             if (pseudo.text.toString() != "") {
@@ -64,7 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("DEGUB", requestCode.toString())
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val imageUri = data?.data
             this.user.linkImage = uploadImageFromGallery(imageUri!!)
