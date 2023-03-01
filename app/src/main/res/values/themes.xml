@@ -12,6 +12,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="cardviewbtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">20dp</item>
+    </style>
+
     <style name="buttonpersonnalise">
         <item name="android:background">@color/blue</item>
         <item name="android:textColor">@color/white</item>

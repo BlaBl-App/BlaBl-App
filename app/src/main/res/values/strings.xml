@@ -3,5 +3,7 @@
     <string name="app_name" translatable="false">BlaBl\'App</string>
     <string name="pseudo">pseudo</string>
     <string name="btn_name">Parlons</string>
+    <string name="msg">Message</string>
+    <string name="btn_env_name">Envoyer</string>
 
 </resources>

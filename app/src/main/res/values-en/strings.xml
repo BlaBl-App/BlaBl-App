@@ -3,5 +3,7 @@
 
     <string name="pseudo">nickname</string>
     <string name="btn_name">Let\'s Talk</string>
+    <string name="msg">Message</string>
+    <string name="btn_env_name">Send</string>
 
 </resources>
