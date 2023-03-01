@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="pseudo">nickname</string>
+    <string name="btn_name">Let\'s Talk</string>
+
+</resources>

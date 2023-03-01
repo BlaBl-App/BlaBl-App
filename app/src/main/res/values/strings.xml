@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">BlaBl\'App</string>
+
+    <string name="app_name" translatable="false">BlaBl\'App</string>
+    <string name="pseudo">pseudo</string>
+    <string name="btn_name">Parlons</string>
+
 </resources>
