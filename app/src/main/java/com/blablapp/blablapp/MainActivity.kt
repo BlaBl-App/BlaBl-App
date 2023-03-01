@@ -46,8 +46,7 @@ class MainActivity : AppCompatActivity() {
                 requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
             } else {
                 //permission already granted
-                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, 1)
+                openGallery()
             }
         }
 
