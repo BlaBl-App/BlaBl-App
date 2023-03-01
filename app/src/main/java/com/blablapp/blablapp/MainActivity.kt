@@ -28,7 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         loadDataUser()
 
-        profilePic.setImageURI(this.user.linkImage.toUri())
+        if (this.user.linkImage.length != 0){
+            profilePic.setImageURI(this.user.linkImage.toUri())
+        }
+
         pseudo.setText(this.user.pseudo)
 
         profilePic.setOnClickListener{
