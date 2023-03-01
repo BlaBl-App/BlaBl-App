@@ -9,10 +9,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -32,15 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         loadDataUser()
 
-        if (this.user.linkImage.isNotEmpty()){
-            profilePic.setImageURI(this.user.linkImage.toUri())
-        }else{
-            profilePic.setImageResource(R.drawable.defaultpp)
-        }
-
-
-        pseudo.setText(this.user.pseudo)
-
         profilePic.setOnClickListener{
             val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.READ_MEDIA_IMAGES else android.Manifest.permission.READ_EXTERNAL_STORAGE
             if(ContextCompat.checkSelfPermission(this, readImagePermission) == PackageManager.PERMISSION_GRANTED){
@@ -49,14 +38,11 @@ class MainActivity : AppCompatActivity() {
             }else{
                 requestPermissions(arrayOf(readImagePermission), 1)
             }
-
         }
 
-
-
         buttonTalk.setOnClickListener {
-            if (pseudo.text.toString() != "") {
-                this.user.pseudo = pseudo.text.toString()
+            if (ProfilPseudo.text.toString() != "") {
+                this.user.pseudo = ProfilPseudo.text.toString()
                 val intent = Intent(this, ForumActivity::class.java)
                 intent.putExtra("user", this.user)
                 startActivity(intent)
@@ -66,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -77,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK)
-        val file = getFile("image")
+        val file = getFile()
         val fileProvider = FileProvider.getUriForFile(this,"com.blablapp.blablapp", file)
         galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
         galleryIntent.type = "image/*"
@@ -109,18 +96,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     @SuppressLint("SimpleDateFormat")
     private fun createFileBM(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = getExternalFilesDir(DIRECTORY_PICTURES)
         return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
-    private fun getFile(nomFichier: String): File {
-        val strgDirec = getExternalFilesDir(DIRECTORY_PICTURES)
-        return  File.createTempFile(nomFichier,".jpg",strgDirec)
+    private fun getFile(): File {
+        val storageDirectory = getExternalFilesDir(DIRECTORY_PICTURES)
+        return  File.createTempFile("image",".jpg",storageDirectory)
     }
 
     private fun saveDataUser() {
@@ -129,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         editor.putString("pseudo", this.user.pseudo)
         editor.putString("linkImage", this.user.linkImage)
         editor.apply()
-        loadDataUser()
     }
 
     private fun loadDataUser() {
@@ -139,6 +124,14 @@ class MainActivity : AppCompatActivity() {
         val linkImage = sharedP.getString("linkImage", "")
         if (pseudo != null && linkImage != null) {
             this.user = User(pseudo, linkImage)
+
+            if (this.user.linkImage.isNotEmpty()){
+                profilePic.setImageURI(this.user.linkImage.toUri())
+            }else{
+                profilePic.setImageResource(R.drawable.defaultpp)
+            }
+
+            ProfilPseudo.setText(this.user.pseudo)
         }
     }
 
