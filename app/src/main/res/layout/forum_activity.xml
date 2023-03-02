@@ -43,13 +43,15 @@
             android:keyboardNavigationCluster="false">
 
             <com.google.android.material.textfield.TextInputEditText
+                id="@+id/textMessageUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/msg"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="textMultiLine"
                 android:maxHeight="120dp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                android:maxLength="256"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
