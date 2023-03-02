@@ -7,4 +7,8 @@
     <string name="btn_env_name">Send</string>
     <string name="messErrorPseudo">Please enter a nickname</string>
 
+    <string name="home">Home</string>
+    <string name="forum">Forums</string>
+    <string name="about_us">About us</string>
+
 </resources>

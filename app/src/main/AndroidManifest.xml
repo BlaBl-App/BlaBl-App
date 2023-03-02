@@ -28,6 +28,9 @@
             android:name=".ForumActivity"
             android:exported="true"/>
         <activity
+            android:name=".SetupProfileActivity"
+            android:exported="true"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
