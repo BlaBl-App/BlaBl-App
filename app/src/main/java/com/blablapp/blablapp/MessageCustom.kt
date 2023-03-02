@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 class MessageCustom(context : Context, name : String, message: String, layout: ConstraintLayout) : View(context){
 
     init {
-        val view = inflate(context, R.layout.message_custom, null)
+        val view = inflate(context, R.layout.message_custom_sent, null)
         val params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
         view.findViewById<TextView>(R.id.userName).text = name
@@ -20,5 +20,4 @@ class MessageCustom(context : Context, name : String, message: String, layout: C
         view.layoutParams = params
         layout.addView(view)
     }
-
 }
