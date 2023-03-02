@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             if (ProfilPseudo.text.toString() != "") {
                 this.user.pseudo = ProfilPseudo.text.toString()
                 val intent = Intent(this, ForumActivity::class.java)
-                intent.putExtra("user", this.user)
+                intent.putExtra("user", this.user.pseudo)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
