@@ -7,11 +7,11 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -75,6 +75,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val apiThread = Thread {
+            try {
+                DAO.Companion.getMessages()
+
+                DAO.Companion.postMessages("Mike","","hi there !")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        apiThread.start()
 
     }
 
