@@ -28,7 +28,10 @@
             android:name=".ChatActivity"
             android:exported="true"/>
         <activity
-            android:name=".SetupProfileActivity"
+            android:name=".ForumActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".AboutUsActivity"
             android:exported="true"/>
         <activity
             android:name=".MainActivity"

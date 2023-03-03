@@ -21,7 +21,7 @@ class AboutUsActivity : AppCompatActivity() {
     private val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.home -> {
-                val intent = Intent(this, AboutUsActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(0, 0)
                 return@OnNavigationItemSelectedListener true

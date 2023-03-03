@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
     <item
         android:id="@+id/home"
         android:icon="@drawable/baseline_home_24"
@@ -12,7 +14,7 @@
         android:orderInCategory="2" />
     <item
         android:id="@+id/about_us"
-        android:icon="@drawable/baseline_groups_24"
+        android:icon="@drawable/baseline_info_24"
         android:title="@string/about_us"
         android:orderInCategory="3"/>
 

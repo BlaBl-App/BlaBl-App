@@ -21,7 +21,6 @@ class ForumActivity : AppCompatActivity() {
                     //intent.putExtra("user", this.user.pseudo)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
-                    finish()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.forum -> {
@@ -31,7 +30,6 @@ class ForumActivity : AppCompatActivity() {
                     val intent = Intent(this, AboutUsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
-                    finish()
                     return@OnNavigationItemSelectedListener true
                 }
             }

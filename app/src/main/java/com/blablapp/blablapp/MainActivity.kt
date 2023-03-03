@@ -40,14 +40,12 @@ class MainActivity : AppCompatActivity() {
                     //intent.putExtra("user", this.user.pseudo)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
-                    finish()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.about_us -> {
                     val intent = Intent(applicationContext, AboutUsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
-                    finish()
                     return@OnNavigationItemSelectedListener true
                 }
             }
