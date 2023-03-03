@@ -11,7 +11,7 @@ class AboutUsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.about_activity)
+        setContentView(R.layout.aboutus_activity)
 
         bottomNavigationView.selectedItemId = R.id.about_us
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationListener)

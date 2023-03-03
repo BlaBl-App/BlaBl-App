@@ -7,9 +7,12 @@
     <string name="btn_env_name">Envoyer</string>
     <string name="messErrorPseudo">Veuillez entrer un pseudo</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Accueil</string>
     <string name="forum">Forums</string>
     <string name="about_us">A propos de nous</string>
+    <string name="aboutUs">A propos de nous</string>
+    <string name="auteurs">Auteurs</string>
+    <string name="menstioLegale">Mention légale</string>
+    <string name="sigle">"lorem loem lorem iuqebbfuehf "</string>
 
 </resources>

@@ -10,5 +10,9 @@
     <string name="home">Home</string>
     <string name="forum">Forums</string>
     <string name="about_us">About us</string>
+    <string name="aboutUs">About Us</string>
+    <string name="auteurs">Authors</string>
+    <string name="menstioLegale">Legal Notices</string>
+    <string name="sigle">"lorem loem lorem iuqebbfuehf "</string>
 
 </resources>
