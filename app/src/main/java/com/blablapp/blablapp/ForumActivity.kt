@@ -1,25 +1,65 @@
 package com.blablapp.blablapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.forum_activity.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.setup_profil_activity.*
 
+@Suppress("DEPRECATION")
 class ForumActivity : AppCompatActivity() {
 
-    private var userName : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forum_activity)
 
-        sendMsg.setOnClickListener{
-            if (userTexForMsg.text?.isNotEmpty()!!) {
-                val msg = userTexForMsg.text.toString()
+        bottomNavigationView.selectedItemId = R.id.forum
+        bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    //intent.putExtra("user", this.user.pseudo)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                    finish()
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.forum -> {
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.about_us -> {
+                    val intent = Intent(this, AboutUsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                    finish()
+                    return@OnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
 
-                userName = intent?.extras?.getString("user").toString()
-                MessageCustom(this, userName, msg, layout)
+    }
 
-                userTexForMsg.text!!.clear()
+
+    /*private val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                //intent.putExtra("user", this.user.pseudo)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.forum -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.about_us -> {
+                val intent = Intent(this, AboutUsActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                return@OnNavigationItemSelectedListener true
             }
         }
-    }
+        false
+    }*/
 }
