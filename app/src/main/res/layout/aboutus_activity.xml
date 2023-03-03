@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/menstioLegale"
+        android:text="@string/mention_legal"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="If anybody has been programming in Java or other language that has concept of null reference then he must has experienced about NullPointerException in the code. Kotlin compiler also throws NullPointerException if it found any null reference without executing any other statements.     The possible causes of NullPointerException’s are following:       Explicit call to throw NullPointerException()     Use of the !! operator     Some data inconsistency with regard to initialization e.g. an uninitialized this is passed as an argument.     Java interoperations such as attempts to access a member on a null reference , generics type with incorrect nullability.       Nullable and Non-Nullable Types in Kotlin –     Kotlin type system has distinguish two types of references that can hold null (nullable references) and those that can not (non-null references).     A variable of type String can not hold null. If we try to assign null to the variable, it gives compiler error.     Kotlin’s type system is aimed to eliminate the jeopardy of null reference from the code because it is a billion dollar mistake. NullPointerExceptions are thrown by the program at runtime and sometimes cause application failure or system crashes.     If anybody has been programming in Java or other language that has concept of null reference then he must has experienced about NullPointerException in the code. Kotlin compiler also throws NullPointerException if it found any null reference without executing any other statements.     The possible causes of NullPointerException’s are following:       Explicit call to throw NullPointerException()     Use of the !! operator     Some data inconsistency with regard to initialization e.g. an uninitialized this is passed as an argument.     Java interoperations such as attempts to access a member on a null reference , generics type with incorrect nullability.       Nullable and Non-Nullable Types in Kotlin –     Kotlin type system has distinguish two types of references that can hold null (nullable references) and those that can not (non-null references).     A variable of type String can not hold null. If we try to assign null to the variable, it gives compiler error.     Kotlin’s type system is aimed to eliminate the jeopardy of null reference from the code because it is a billion dollar mistake. NullPointerExceptions are thrown by the program at runtime and sometimes cause application failure or system crashes.     If anybody has been programming in Java or other language that has concept of null reference then he must has experienced about NullPointerException in the code. Kotlin compiler also throws NullPointerException if it found any null reference without executing any other statements.     The possible causes of NullPointerException’s are following:       Explicit call to throw NullPointerException()     Use of the !! operator     Some data inconsistency with regard to initialization e.g. an uninitialized this is passed as an argument.     Java interoperations such as attempts to access a member on a null reference , generics type with incorrect nullability. "
-                android:textAlignment="textStart" />
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 
@@ -180,6 +180,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/icon" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
