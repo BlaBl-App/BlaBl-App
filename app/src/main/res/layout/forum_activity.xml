@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="je suis forum acti"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -21,32 +13,7 @@
         app:itemIconTint="@drawable/selector_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< HEAD
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
-=======
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:filterTouchesWhenObscured="false"
-            android:keyboardNavigationCluster="false">
-
-            <com.google.android.material.textfield.TextInputEditText
-                id="@+id/textMessageUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/msg"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="textMultiLine"
-                android:maxHeight="120dp"
-                android:scrollbars="vertical"
-                android:maxLength="256"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.cardview.widget.CardView>
->>>>>>> dbc9bf237d28282e46a9019cf88add99c953b29c
 
 </androidx.constraintlayout.widget.ConstraintLayout>
