@@ -17,6 +17,9 @@ class ChatActivity : AppCompatActivity() {
         listOfMessage = ArrayList()
         messageAdapter = MessageAdapter(this, listOfMessage)
 
+        messageRecyclerView.layoutManager = LinearLayoutManager(this)
+        messageRecyclerView.adapter = messageAdapter
+
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
@@ -24,9 +27,8 @@ class ChatActivity : AppCompatActivity() {
                 userName = intent?.extras?.getString("user").toString()
                 listOfMessage.add(UserMessage(null,null,userName,null, msg))
 
-                messageRecyclerView.adapter = messageAdapter
-                messageRecyclerView.setLayoutManager(LinearLayoutManager(this))
-
+                // Scroll to the bottom of the list and show the new message
+                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
                 messageAdapter.notifyDataSetChanged()
 
                 userTexForMsg.text!!.clear()
