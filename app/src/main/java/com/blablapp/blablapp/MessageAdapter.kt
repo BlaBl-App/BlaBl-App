@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMessage>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -34,6 +37,7 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
             val sentMessageViewHolder = holder as SentMessageViewHolder
             sentMessageViewHolder.userNameSending.text = message.nickname
             sentMessageViewHolder.userMessageSending.text = message.message
+            sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime.toLong())
 
         } else {
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
@@ -57,12 +61,20 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
 
         val userNameSending = itemView.findViewById<TextView>(R.id.userNameSending)
         val userMessageSending = itemView.findViewById<TextView>(R.id.userMessageSending)
+        val userDateSending = itemView.findViewById<TextView>(R.id.userMessageTimeSending)
     }
 
     class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val userNameReceiving = itemView.findViewById<TextView>(R.id.userNameReceiving)
         val userMessageReceiving = itemView.findViewById<TextView>(R.id.userMessageReceiving)
+        val userDateReceiving = itemView.findViewById<TextView>(R.id.userMessageTimeReceiving)
+    }
+
+    fun getDateFromTimestamp(timestamp: Long): String {
+        val date = Date(timestamp)
+        val format = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        return format.format(date)
     }
 
 }
