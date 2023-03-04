@@ -51,13 +51,15 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun getMessage(){
+
         val apiThread = Thread {
             try {
                 val  messages : Array<Message> = DAO.Companion.getMessages()
 
                 for (message in messages) {
                     runOnUiThread {
-                        MessageCustom(this, message.nickname, message.messageContent, layout)
+                        listOfMessage.add(UserMessage(idForum, 1 , message.nickname, linkImage, message.messageContent))
+                        //MessageCustom(this, message.nickname, message.messageContent, layout)
                     }
                     
                 }
