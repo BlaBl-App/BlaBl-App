@@ -15,10 +15,10 @@ class DAO {
         fun getMessages(nb:Int = 10, start:Int = 0)
         {
             val apiResponse = URL(servIp+"/message").readText()
-            val messages = parseMessageJson(apiResponse)
+            /*val messages = parseMessageJson(apiResponse)
             for (message in messages) {
                 println("id: ${message.id}, nickname: ${message.nickname}, profileImage: ${message.profileImage}")
-            }
+            }*/
         }
 
         fun postMessages(nickname:String, profilePick:String, messsageContent: String)
