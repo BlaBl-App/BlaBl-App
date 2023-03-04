@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                 this.user.pseudo = ProfilPseudo.text.toString()
                 val intent = Intent(this, ChatActivity::class.java)
                 intent.putExtra("user", this.user.pseudo)
+                intent.putExtra("linkImage", this.user.linkImage)
+                intent.putExtra("idForum",-1) // à changer et mettre le bon forum
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
