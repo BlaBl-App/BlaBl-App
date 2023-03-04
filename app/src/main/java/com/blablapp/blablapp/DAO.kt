@@ -14,7 +14,14 @@ class DAO {
 
         fun getMessages(nb:Int = 10, start:Int = 0): Array<Message> {
             val apiResponse = URL(servIp+"/message").readText()
+
             return parseMessageJson(apiResponse)
+
+
+            /*val messages = parseMessageJson(apiResponse)
+            for (message in messages) {
+                println("id: ${message.id}, nickname: ${message.nickname}, profileImage: ${message.profileImage}")
+            }*/
 
         }
 

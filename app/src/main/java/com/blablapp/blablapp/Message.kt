@@ -1,5 +1,5 @@
 package com.blablapp.blablapp
-
+/*
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlin.math.roundToInt
@@ -37,3 +37,4 @@ class ApiResponse(
     @SerializedName("messages") var messages: Array<Array<Any>>,
     @SerializedName("success") var success: Boolean
 )
+*/
