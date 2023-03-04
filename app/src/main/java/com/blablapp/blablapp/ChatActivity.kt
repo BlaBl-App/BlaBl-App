@@ -30,7 +30,7 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage()
                 val msg = userTexForMsg.text.toString()
                 userName = intent?.extras?.getString("user").toString()
-                listOfMessage.add(UserMessage(null,null,userName,null, msg))
+                listOfMessage.add(UserMessage(-1,null,userName,null, msg))
 
                 // Scroll to the bottom of the list and show the new message
                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
