@@ -20,7 +20,9 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.chat_activity)
 
 
+
         getMessage()
+
 
         listOfMessage = ArrayList()
         messageAdapter = MessageAdapter(this, listOfMessage)
@@ -32,7 +34,10 @@ class ChatActivity : AppCompatActivity() {
         linkImage = intent?.extras?.getString("linkImage").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e9adfbc6d3ae014501bf0f64745dce1ee886e55f
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 sendMessage()
