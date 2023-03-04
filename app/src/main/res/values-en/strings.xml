@@ -13,6 +13,13 @@
     <string name="aboutUs">About Us</string>
     <string name="auteurs">Authors</string>
     <string name="mention_legal">Legal Notices</string>
-    <string name="sigle">"lorem loem lorem iuqebbfuehf "</string>
+    <string name="sigle"> BlaBla\'App </string>
+    <string name="legal_notices">
+This application was developed as part of our studies in BUT Computer Science.
 
+The purpose of this application is to allow users to talk to each other.
+Users can join discussion rooms and talk to other users.
+
+We are not responsible for the words spoken by the users.
+    </string>
 </resources>

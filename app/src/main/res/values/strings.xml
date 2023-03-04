@@ -12,7 +12,13 @@
     <string name="about_us">A propos de nous</string>
     <string name="aboutUs">A propos de nous</string>
     <string name="auteurs">Auteurs</string>
-    <string name="mention_legal">Mention légale</string>
-    <string name="sigle">"lorem loem lorem iuqebbfuehf "</string>
+    <string name="mention_legal">Mentions légales</string>
+    <string name="sigle">BlaBla\'App</string>
+    <string name="legal_notices">
+Cette application a été développée dans le cadre des nos études en BUT Informatique.
 
+Le but de cette application est de permettre aux utilisateurs de discuter entre eux.
+Les utilisateurs peuvent rejoindre des salons de discussion et discuter avec les autres utilisateurs.
+
+Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </string>
 </resources>
