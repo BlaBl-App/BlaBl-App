@@ -24,7 +24,8 @@ class DAO {
         fun postMessages(nickname:String, profilePick:String, messsageContent: String)
         {
             val url = URL(servIp+"/message")
-            val postData="pick=$profilePick&nickname=$nickname&message=$messsageContent"
+            val postData="pick=$profilePick&nickname=$nickname&message=\"$messsageContent\""
+            println("post data ${postData}")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.doOutput = true

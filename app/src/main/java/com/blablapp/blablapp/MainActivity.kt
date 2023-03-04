@@ -85,7 +85,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        apiThread.start()
+        // uncomment to activate api call test
+        //apiThread.start()
 
     }
 
