@@ -32,12 +32,10 @@ class ChatActivity : AppCompatActivity() {
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
 
 
-
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 sendMessage()
                 val msg = userTexForMsg.text.toString()
-
                 listOfMessage.add(UserMessage(idForum, Date().time.milliseconds, userName, linkImage, msg))
 
                 // Scroll to the bottom of the list and show the new message
