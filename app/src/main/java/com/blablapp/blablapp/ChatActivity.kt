@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.chat_activity.*
-import java.util.Date
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.time.Duration.Companion.milliseconds
 
 class ChatActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 val msg = userTexForMsg.text.toString()
-                listOfMessage.add(UserMessage(idForum, Date().time.milliseconds, userName, linkImage, msg))
+                listOfMessage.add(UserMessage(idForum, 1 , userName, linkImage, msg))
 
                 // Scroll to the bottom of the list and show the new message
                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
