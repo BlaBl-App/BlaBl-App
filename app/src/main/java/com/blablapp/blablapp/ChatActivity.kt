@@ -11,6 +11,8 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
 
+        getMessage()
+
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 sendMessage()
@@ -22,6 +24,27 @@ class ChatActivity : AppCompatActivity() {
                 userTexForMsg.text!!.clear()
             }
         }
+    }
+
+    fun getMessage(){
+        val apiThread = Thread {
+            try {
+                val  messages : Array<Message> = DAO.Companion.getMessages()
+
+                for (message in messages) {
+                    runOnUiThread {
+                        MessageCustom(this, message.nickname, message.messageContent, layout)
+                    }
+                    
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // uncomment to activate api call test
+        apiThread.start()
+
     }
 
     fun sendMessage(){
