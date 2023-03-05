@@ -33,15 +33,6 @@ class ChatActivity : AppCompatActivity() {
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 sendMessage()
-                val msg = userTexForMsg.text.toString()
-                //getMessage()
-                //listOfMessage.add(UserMessage(idForum, 1 , userName, linkImage, msg))
-
-                // Scroll to the bottom of the list and show the new message
-                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
-                messageAdapter.notifyDataSetChanged()
-
-                userTexForMsg.text!!.clear()
             }
         }
     }
@@ -123,6 +114,7 @@ class ChatActivity : AppCompatActivity() {
                 val nickname =intent?.extras?.getString("user").toString()
                 val message = userTexForMsg.text.toString()
                 DAO.Companion.postMessages( nickname,"",message)
+                userTexForMsg.text!!.clear()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
