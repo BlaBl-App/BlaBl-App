@@ -43,6 +43,7 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
             receivedMessageViewHolder.userMessageReceiving.text = message.message
+            receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime.toLong())
         }
     }
 
@@ -75,6 +76,14 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
         val date = Date(timestamp)
         val format = SimpleDateFormat("dd/MM/yyyy HH:mm")
         return format.format(date)
+    }
+
+    fun removeOuterQuotes(s: String): String {
+        if (s.startsWith("\"") && s.endsWith("\"")) {
+            return s.removeSurrounding("\"")
+        } else {
+            return s
+        }
     }
 
 }

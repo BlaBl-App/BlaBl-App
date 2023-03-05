@@ -51,7 +51,7 @@ class ChatActivity : AppCompatActivity() {
 
                 val  messages : Array<Message> = DAO.Companion.getMessages()
                 messages.reverse()
-                //listOfMessage = ArrayList()
+                listOfMessage.clear()
                 for (message in messages) {
                     runOnUiThread {
                         listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
