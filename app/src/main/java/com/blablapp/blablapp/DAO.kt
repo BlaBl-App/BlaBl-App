@@ -1,6 +1,7 @@
 package com.blablapp.blablapp
 
 import android.annotation.SuppressLint
+import android.util.Log
 import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
@@ -46,9 +47,23 @@ class DAO {
 
             val jsonString = conn.inputStream.bufferedReader().use { it.readText() }
             println(jsonString)
-
             conn.disconnect()
+        }
 
+        fun get_all_forums(): Array<Forum> {
+            Log.d("DEGUB FORUM URL", "$servIp/forums")
+            val apiResponse = URL("$servIp/forums").readText()
+            val json = JSONObject(apiResponse)
+            val forums = json.getJSONArray("forums")
+            val forumsList = mutableListOf<Forum>()
+            for (i in 0 until forums.length()) {
+                val forum = forums.getJSONObject(i)
+                val forumId = forum.getInt("id")
+                val forumName = forum.getString("name")
+                val forumDescription = forum.getString("description")
+                forumsList.add(Forum(forumId, forumName, forumDescription))
+            }
+            return forumsList.toTypedArray()
         }
     }
 

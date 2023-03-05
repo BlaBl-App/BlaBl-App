@@ -11,7 +11,6 @@ class Message(
     @SerializedName("messageContent") var messageContent: String,
     @SerializedName("forum") var forumId: Int,
     @SerializedName("postTime") var postTime: Long
-
 )
 
 fun parseMessageJson(json: String): Array<Message> {
