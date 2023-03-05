@@ -35,7 +35,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:filterTouchesWhenObscured="false"
                 android:keyboardNavigationCluster="false">
 
@@ -47,7 +46,8 @@
                     android:imeOptions="flagNoExtractUi"
                     android:inputType="textMultiLine"
                     android:maxHeight="120dp"
-                    android:scrollbars="vertical" />
+                    android:scrollbars="vertical"
+                    android:maxLength="256"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +59,7 @@
             android:layout_height="50dp"
             android:backgroundTint="@color/blue"
             android:clickable="true"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/todo"
             app:srcCompat="@drawable/baseline_send_24" />
 
     </LinearLayout>
