@@ -41,10 +41,12 @@ class ChatActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
             println("fake refresh")
+
+            nbMessageToShow += 5
             noPullDown = true
-            nbMessageToShow += 10
             setLastMessageId(-1)
             swipeRefreshLayout.isRefreshing = false
+
         }
 
         getMessage()
@@ -102,7 +104,7 @@ class ChatActivity : AppCompatActivity() {
 
                     val servLastMessageId: Int = DAO.Companion.getLastMessageId()
                     if (getLastMessageId() != servLastMessageId ){
-                        println("old messageid ${getLastMessageId()} new messageID $servLastMessageId")
+                        println("old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
                         val  messages : Array<Message> = DAO.Companion.getMessages(nbMessageToShow)
                         messages.reverse()
                         setLastMessageId(getMaxMessageId(messages))
@@ -113,15 +115,19 @@ class ChatActivity : AppCompatActivity() {
                             runOnUiThread {
                                 listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
                                 //MessageCustom(this, message.nickname, message.messageContent, layout)
-                                if (!noPullDown){
-                                    messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
-                                }
-                                noPullDown = false
-
                                 messageAdapter.notifyDataSetChanged()
                             }
 
                         }
+                        if (!noPullDown){
+                            println("pulling down")
+                            runOnUiThread {
+                                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
+                            }
+                        }
+                        noPullDown = false
+
+
                         setLastMessageId(servLastMessageId)
 
                     }
