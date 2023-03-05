@@ -72,7 +72,7 @@ class ChatActivity : AppCompatActivity() {
     fun setLastMessageId(newLastMessageId : Int){
         lastMessageId = newLastMessageId
     }
-    
+
     fun getMessage(){
 
         val apiThread = Thread {
@@ -91,6 +91,7 @@ class ChatActivity : AppCompatActivity() {
                             runOnUiThread {
                                 listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
                                 //MessageCustom(this, message.nickname, message.messageContent, layout)
+                                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
                                 messageAdapter.notifyDataSetChanged()
                             }
 
