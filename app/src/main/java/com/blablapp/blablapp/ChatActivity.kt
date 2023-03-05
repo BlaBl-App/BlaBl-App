@@ -93,8 +93,6 @@ class ChatActivity : AppCompatActivity() {
                         setLastMessageId(servLastMessageId)
 
                     }
-
-
                     Thread.sleep(300)
 
                 }
@@ -102,7 +100,6 @@ class ChatActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
 
         // uncomment to activate api call test
