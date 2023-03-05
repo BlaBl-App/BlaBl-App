@@ -72,9 +72,9 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
         val userDateReceiving = itemView.findViewById<TextView>(R.id.userMessageTimeReceiving)
     }
 
-    fun getDateFromTimestamp(timestamp: Long): String {
+    private fun getDateFromTimestamp(timestamp: Long): String {
         val date = Date(timestamp)
-        val format = SimpleDateFormat("dd/MM/yyyy HH:mm")
+        val format = SimpleDateFormat("dd LLL yyyy, HH:mm" , Locale.FRANCE)
         return format.format(date)
     }
 
