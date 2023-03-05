@@ -20,4 +20,9 @@ Les utilisateurs peuvent rejoindre des salons de discussion et discuter avec les
     <string name="legal_notices">
 Cette application a été développée dans le cadre des nos études en BUT Informatique.
 Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </string>
+    <string name="qypol342">qypol342</string>
+    <string name="icepick4">icepick4</string>
+    <string name="nabilesall">nabilesall</string>
+    <string name="pp_nabile">photo de profil nabile sall</string>
+    <string name="todo">todo</string>
 </resources>
