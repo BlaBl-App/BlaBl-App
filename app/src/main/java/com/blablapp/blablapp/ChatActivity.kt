@@ -82,6 +82,7 @@ class ChatActivity : AppCompatActivity() {
                         }
                         for (message in messages) {
                             runOnUiThread {
+                                println("postTime ${message.postTime}")
                                 listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
                                 //MessageCustom(this, message.nickname, message.messageContent, layout)
                                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
