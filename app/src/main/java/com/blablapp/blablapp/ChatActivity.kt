@@ -32,7 +32,8 @@ class ChatActivity : AppCompatActivity() {
             if (userTexForMsg.text?.isNotEmpty()!!) {
                 sendMessage()
                 val msg = userTexForMsg.text.toString()
-                listOfMessage.add(UserMessage(idForum, 1 , userName, linkImage, msg))
+                getMessage()
+                //listOfMessage.add(UserMessage(idForum, 1 , userName, linkImage, msg))
 
                 // Scroll to the bottom of the list and show the new message
                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
@@ -47,18 +48,22 @@ class ChatActivity : AppCompatActivity() {
 
         val apiThread = Thread {
             try {
-                val  messages : Array<Message> = DAO.Companion.getMessages()
 
+                val  messages : Array<Message> = DAO.Companion.getMessages()
+                messages.reverse()
+                //listOfMessage = ArrayList()
                 for (message in messages) {
                     runOnUiThread {
-                        listOfMessage.add(UserMessage(idForum, 1 , message.nickname, linkImage, message.messageContent))
+                        listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
                         //MessageCustom(this, message.nickname, message.messageContent, layout)
+                        messageAdapter.notifyDataSetChanged()
                     }
 
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+
         }
 
         // uncomment to activate api call test
