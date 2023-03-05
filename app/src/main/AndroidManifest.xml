@@ -28,6 +28,7 @@
 
         <activity
             android:name=".ChatActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"/>
         <activity
             android:name=".ForumActivity"
