@@ -82,7 +82,7 @@ class ChatActivity : AppCompatActivity() {
     fun getLastMessageId():Int{
         return lastMessageId
     }
-    fun getMaxMessageId(messages: Array<Message>): Int {
+    private fun getMaxMessageId(messages: Array<Message>): Int {
         return messages.maxByOrNull { it.id }?.id ?: Int.MIN_VALUE
     }
 
@@ -95,7 +95,7 @@ class ChatActivity : AppCompatActivity() {
         lastMessageId = newLastMessageId
     }
 
-    fun getMessage(){
+    private fun getMessage(){
 
         val apiThread = Thread {
             try {
@@ -149,7 +149,7 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    fun sendMessage(message : String){
+    private fun sendMessage(message : String){
         val apiThread = Thread {
             try {
                 //DAO.Companion.getMessages()
