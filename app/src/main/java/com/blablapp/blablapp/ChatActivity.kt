@@ -124,6 +124,10 @@ class ChatActivity : AppCompatActivity() {
                             runOnUiThread {
                                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
                             }
+                        }else{
+                            runOnUiThread {
+                                messageRecyclerView.smoothScrollToPosition(12)
+                            }
                         }
                         noPullDown = false
 
