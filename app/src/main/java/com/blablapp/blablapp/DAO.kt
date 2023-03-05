@@ -1,5 +1,7 @@
 package com.blablapp.blablapp
 
+import android.annotation.SuppressLint
+import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
@@ -10,20 +12,17 @@ class DAO {
         private var servIp: String = "http://tchoutchou.ovh:5555/api"
 
 
-
+        fun getLastMessageId(): Int {
+            val apiResponse = URL("$servIp/last_message_id").readText()
+            val json = JSONObject(apiResponse)
+            return json.getInt("last_message_id")
+        }
 
         fun getMessages(nb:Int = 10, start:Int = 0): Array<Message> {
             val apiResponse = URL(servIp+"/message").readText()
 
 
             return parseMessageJson(apiResponse)
-
-
-            /*val messages = parseMessageJson(apiResponse)
-            for (message in messages) {
-                println("id: ${message.id}, nickname: ${message.nickname}, profileImage: ${message.profileImage}")
-            }*/
-
 
         }
 
