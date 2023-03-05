@@ -20,7 +20,7 @@ fun parseMessageJson(json: String): Array<Message> {
     val messagesList = mutableListOf<Message>()
 
     for (messageArr in jsonResponse.messages) {
-        println("veriffy post time ${messageArr[5] as Double} ${(messageArr[5] as Double).roundToInt()}")
+
         val message = Message(
             id = (messageArr[0] as Double).roundToInt(),
             profileImage = messageArr[1] as String,

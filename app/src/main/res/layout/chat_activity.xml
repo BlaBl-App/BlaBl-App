@@ -9,13 +9,25 @@
     android:autofillHints="false"
     tools:ignore="MissingConstraints">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout"
+
+        >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/linearLayout"
-        android:layout_marginTop="10dp"/>
+       />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

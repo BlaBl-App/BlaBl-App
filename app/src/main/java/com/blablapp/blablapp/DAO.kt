@@ -19,7 +19,8 @@ class DAO {
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0): Array<Message> {
-            val apiResponse = URL(servIp+"/message").readText()
+            println("request $servIp/message?nb=$nb&start=$start")
+            val apiResponse = URL("$servIp/message?nb=$nb&start=$start").readText()
 
 
             return parseMessageJson(apiResponse)

@@ -3,6 +3,7 @@ package com.blablapp.blablapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.chat_activity.*
 
 class ChatActivity : AppCompatActivity() {
@@ -14,9 +15,37 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var listOfMessage: ArrayList<UserMessage>
     private var lastMessageId: Int =-1
     private var liveUpdate = true
+    private var nbMessageToShow = 10
+    private var noPullDown :Boolean = false
+
+
+    override fun onStop() {
+        super.onStop()
+        setLiveUpdate(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!getLiveUpdate()){
+            setLiveUpdate(true)
+            getMessage()
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
+
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            println("fake refresh")
+            noPullDown = true
+            nbMessageToShow += 10
+            setLastMessageId(-1)
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         getMessage()
 
@@ -51,14 +80,12 @@ class ChatActivity : AppCompatActivity() {
     fun getLastMessageId():Int{
         return lastMessageId
     }
-    fun getMaxMessageId(messages : Array<Message>):Int{
-        var maxId = Int.MIN_VALUE
-        for (message in messages) {
-            if (message.id > maxId) {
-                maxId = message.id
-            }
-        }
-        return maxId
+    fun getMaxMessageId(messages: Array<Message>): Int {
+        return messages.maxByOrNull { it.id }?.id ?: Int.MIN_VALUE
+    }
+
+    fun getMinMessageId(messages: Array<Message>): Int {
+        return messages.minByOrNull { it.id }?.id ?: Int.MAX_VALUE
     }
 
     @Synchronized
@@ -70,11 +97,13 @@ class ChatActivity : AppCompatActivity() {
 
         val apiThread = Thread {
             try {
+
                 while (getLiveUpdate()){
+
                     val servLastMessageId: Int = DAO.Companion.getLastMessageId()
                     if (getLastMessageId() != servLastMessageId ){
                         println("old messageid ${getLastMessageId()} new messageID $servLastMessageId")
-                        val  messages : Array<Message> = DAO.Companion.getMessages()
+                        val  messages : Array<Message> = DAO.Companion.getMessages(nbMessageToShow)
                         messages.reverse()
                         setLastMessageId(getMaxMessageId(messages))
                         runOnUiThread {
@@ -82,10 +111,13 @@ class ChatActivity : AppCompatActivity() {
                         }
                         for (message in messages) {
                             runOnUiThread {
-                                println("postTime ${message.postTime}")
                                 listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
                                 //MessageCustom(this, message.nickname, message.messageContent, layout)
-                                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
+                                if (!noPullDown){
+                                    messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
+                                }
+                                noPullDown = false
+
                                 messageAdapter.notifyDataSetChanged()
                             }
 
