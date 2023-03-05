@@ -32,7 +32,9 @@ class ChatActivity : AppCompatActivity() {
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!) {
-                sendMessage()
+                val message = userTexForMsg.text.toString()
+                sendMessage(message)
+                userTexForMsg.text!!.clear()
             }
         }
     }
@@ -107,14 +109,14 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    fun sendMessage(){
+    fun sendMessage(message : String){
         val apiThread = Thread {
             try {
                 //DAO.Companion.getMessages()
                 val nickname =intent?.extras?.getString("user").toString()
-                val message = userTexForMsg.text.toString()
+
                 DAO.Companion.postMessages( nickname,"",message)
-                userTexForMsg.text!!.clear()
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
