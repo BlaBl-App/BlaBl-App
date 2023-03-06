@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_image"
     android:autofillHints="false"
+    android:foregroundGravity="fill"
     tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_image"
+        android:contentDescription="@string/todo" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentTop="true"
         android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true">
 
-        >
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messageRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/linearLayout"
-       />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/messageRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentTop="true"
+            android:paddingTop="15dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
-        android:padding="10dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:padding="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="80"
             android:layout_marginEnd="10dp"
+            android:layout_weight="80"
             app:cardCornerRadius="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -59,8 +65,8 @@
                     android:imeOptions="flagNoExtractUi"
                     android:inputType="textMultiLine"
                     android:maxHeight="120dp"
-                    android:scrollbars="vertical"
-                    android:maxLength="256"/>
+                    android:maxLength="256"
+                    android:scrollbars="vertical" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
