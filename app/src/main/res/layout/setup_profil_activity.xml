@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/blueDark">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
@@ -41,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/pseudo"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:maxLength="20" />
 
         </com.google.android.material.textfield.TextInputLayout>

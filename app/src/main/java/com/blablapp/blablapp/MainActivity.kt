@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonTalk.setOnClickListener {
             if (ProfilPseudo.text.toString() != "") {
+                this.user.pseudo = ProfilPseudo.text.toString()
                 val intent = Intent(this, ForumActivity::class.java)
                 startActivity(intent)
             } else {
@@ -168,7 +170,6 @@ class MainActivity : AppCompatActivity() {
         val linkImage = sharedP.getString("linkImage", "")
         if (pseudo != null && linkImage != null) {
             this.user = User(pseudo, linkImage)
-
             if (this.user.linkImage.isNotEmpty()){
                 profilePic.setImageURI(this.user.linkImage.toUri())
             }else{
