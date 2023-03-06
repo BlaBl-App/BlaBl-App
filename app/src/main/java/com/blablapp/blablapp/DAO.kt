@@ -16,40 +16,21 @@ class DAO {
 
 
         fun getLastMessageId(forum: Int): Int {
-            val url = URL(servIp+"/last_message_id")
-            val postData = "forum=$forum".toByteArray(StandardCharsets.UTF_8)
-            val conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST"
-            conn.doOutput = true
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            conn.setRequestProperty("charset", "utf-8")
-            conn.setRequestProperty("Content-Length", postData.size.toString())
-
-            try {
-                conn.outputStream.use { outputStream ->
-                    outputStream.write(postData)
-                }
-            } catch (e: IOException) {
-                // handle exception
-            }
-            val jsonString = conn.inputStream.bufferedReader().use { it.readText() }
-            conn.disconnect()
-            return JSONObject(jsonString).getInt("last_message_id")
+            val apiResponse = URL("$servIp/last_message_id?forum=$forum").readText()
+            val json = JSONObject(apiResponse)
+            return json.getInt("last_message_id")
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0, forum: Int): Array<Message> {
             println("request $servIp/message?nb=$nb&start=$start&forum=$forum")
             val apiResponse = URL("$servIp/message?nb=$nb&start=$start&forum=$forum").readText()
-
-
             return parseMessageJson(apiResponse)
-
         }
 
-        fun postMessages(nickname:String, profilePick:String, messsageContent: String)
+        fun postMessages(nickname:String, profilePick:String, messsageContent: String, forum: Int)
         {
             val url = URL(servIp+"/message")
-            val postData="pick=$profilePick&nickname=$nickname&message=\"$messsageContent\""
+            val postData="pick=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
             println("post data ${postData}")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
