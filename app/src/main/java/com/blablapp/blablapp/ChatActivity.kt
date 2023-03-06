@@ -102,10 +102,10 @@ class ChatActivity : AppCompatActivity() {
 
                 while (getLiveUpdate()){
 
-                    val servLastMessageId: Int = DAO.Companion.getLastMessageId()
+                    val servLastMessageId: Int = DAO.Companion.getLastMessageId(idForum)
                     if (getLastMessageId() != servLastMessageId ){
                         println("old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
-                        val  messages : Array<Message> = DAO.Companion.getMessages(nbMessageToShow)
+                        val  messages : Array<Message> = DAO.Companion.getMessages(nbMessageToShow, forum=idForum)
                         messages.reverse()
                         setLastMessageId(getMaxMessageId(messages))
                         runOnUiThread {

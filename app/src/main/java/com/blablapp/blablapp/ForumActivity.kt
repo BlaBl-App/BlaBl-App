@@ -101,6 +101,7 @@ class ForumActivity : AppCompatActivity() {
                             }
                         }
                         if (!alreadyInList){
+                            Log.d("DEBUG ADDING FORUM LIST", forum.toString())
                             forumList.add(forum)
                             forumAdapter.notifyDataSetChanged()
                         }

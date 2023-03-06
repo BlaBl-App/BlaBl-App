@@ -2,19 +2,22 @@ package com.blablapp.blablapp
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ForumViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.single_forum, null)
+            LayoutInflater.from(parent.context).inflate(R.layout.single_forum, parent, false)
         )
     }
 
@@ -30,6 +33,9 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
         forumViewHolder.itemView.setOnLongClickListener{
             removeForum(position, forum.name, forum.id)
             true
+        }
+        forumViewHolder.itemView.setOnClickListener{
+            selectForum(forum.id, forum.id)
         }
     }
 
@@ -55,6 +61,25 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
         }
         alertDialog.setNegativeButton(R.string.no){dialog, which ->
             Toast.makeText(context, R.string.notDeletedForum, Toast.LENGTH_SHORT).show()
+        }
+        alertDialog.show()
+    }
+
+    fun selectForum(position: Int, forumId: Int){
+        var alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle(R.string.forum)
+        alertDialog.setMessage(R.string.selectForum)
+        alertDialog.setPositiveButton(R.string.yes){dialog, which ->
+            val sharedP = context.getSharedPreferences("user",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            val pseudo = sharedP.getString("pseudo", "")
+            val intent = Intent(context, ChatActivity::class.java)
+            intent.putExtra("idForum", forumId)
+            intent.putExtra("user", pseudo)
+            ContextCompat.startActivity(context, intent, null)
+        }
+        alertDialog.setNegativeButton(R.string.no){dialog, which ->
         }
         alertDialog.show()
     }

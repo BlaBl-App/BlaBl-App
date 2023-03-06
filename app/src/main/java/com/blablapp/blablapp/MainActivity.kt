@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val apiThread = Thread {
+        /*val apiThread = Thread {
             try {
                 DAO.Companion.getMessages()
                 DAO.Companion.get_all_forums()
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+        }*/
 
         // uncomment to activate api call test
         //apiThread.start()
