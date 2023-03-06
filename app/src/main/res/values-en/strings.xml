@@ -6,7 +6,16 @@
     <string name="msg">Message</string>
     <string name="btn_env_name">Send</string>
     <string name="messErrorPseudo">Please enter a nickname</string>
-
+    <string name="removeForum">Delete the forum</string>
+    <string name="askRemoveForum">Do you really want to delete this forum?</string>
+    <string name="deletedForum">Forum deleted</string>
+    <string name="notDeletedForum">Forum not deleted</string>
+    <string name="addForum">Add a forum</string>
+    <string name="addForumQuestion">Please enter the title and description of the forum</string>
+    <string name="forumName">Forum name</string>
+    <string name="forumDescription">Forum description</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="home">Home</string>
     <string name="forum">Forums</string>
     <string name="about_us">About us</string>

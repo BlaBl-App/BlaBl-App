@@ -7,6 +7,17 @@
     <string name="btn_env_name">Envoyer</string>
     <string name="messErrorPseudo">Veuillez entrer un pseudo</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="removeForum">Supprimer le forum</string>
+    <string name="askRemoveForum">Voulez-vous vraiment supprimer ce forum ?</string>
+    <string name="deletedForum">Forum supprimé</string>
+    <string name="notDeletedForum">Forum non supprimé</string>
+    <string name="addForum">Ajouter un forum</string>
+    <string name="addForumQuestion">Veuillez entrer le titre et la description du forum</string>
+    <string name="forumName">Nom du forum</string>
+    <string name="forumDescription">Description du forum</string>
+    <string name="selectForum">Accéder à ce forum ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
     <string name="home">Accueil</string>
     <string name="forum">Forums</string>
     <string name="about_us">A propos de nous</string>

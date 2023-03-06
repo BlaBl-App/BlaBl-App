@@ -1,6 +1,7 @@
 package com.blablapp.blablapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -36,7 +37,6 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
-
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
@@ -62,9 +62,9 @@ class ChatActivity : AppCompatActivity() {
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
 
         sendMsg.setOnClickListener{
-            if (userTexForMsg.text?.isNotEmpty()!!) {
+            if (userTexForMsg.text?.isNotEmpty()!!){
                 val message = userTexForMsg.text.toString()
-                sendMessage(message)
+                sendMessage(message, idForum)
                 userTexForMsg.text!!.clear()
             }
         }
@@ -99,13 +99,12 @@ class ChatActivity : AppCompatActivity() {
 
         val apiThread = Thread {
             try {
-
+                Log.d("MESSAGES FORUM", idForum.toString())
                 while (getLiveUpdate()){
-
-                    val servLastMessageId: Int = DAO.Companion.getLastMessageId()
+                    val servLastMessageId: Int = DAO.Companion.getLastMessageId(idForum)
                     if (getLastMessageId() != servLastMessageId ){
                         println("old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
-                        val  messages : Array<Message> = DAO.Companion.getMessages(nbMessageToShow)
+                        val  messages : Array<Message> = DAO.Companion.getMessages(nb=nbMessageToShow, forum=idForum)
                         messages.reverse()
                         setLastMessageId(getMaxMessageId(messages))
                         runOnUiThread {
@@ -114,7 +113,6 @@ class ChatActivity : AppCompatActivity() {
                         for (message in messages) {
                             runOnUiThread {
                                 listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
-                                //MessageCustom(this, message.nickname, message.messageContent, layout)
                                 messageAdapter.notifyDataSetChanged()
                             }
 
@@ -149,13 +147,13 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    private fun sendMessage(message : String){
+    private fun sendMessage(message : String, forum: Int){
         val apiThread = Thread {
             try {
                 //DAO.Companion.getMessages()
                 val nickname =intent?.extras?.getString("user").toString()
 
-                DAO.Companion.postMessages( nickname,"",message)
+                DAO.Companion.postMessages( nickname,"",message, forum)
 
             } catch (e: Exception) {
                 e.printStackTrace()
