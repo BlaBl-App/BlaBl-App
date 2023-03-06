@@ -9,8 +9,8 @@ class Message(
     @SerializedName("pick") var profileImage: String,
     @SerializedName("nickname") var nickname: String,
     @SerializedName("messageContent") var messageContent: String,
-    @SerializedName("postTime") var postTime: Int
-
+    @SerializedName("forum") var forumId: Int,
+    @SerializedName("postTime") var postTime: Long
 )
 
 fun parseMessageJson(json: String): Array<Message> {
@@ -19,13 +19,14 @@ fun parseMessageJson(json: String): Array<Message> {
     val messagesList = mutableListOf<Message>()
 
     for (messageArr in jsonResponse.messages) {
-        println("veriffy id ${(messageArr[0] as Double).roundToInt()}")
+
         val message = Message(
             id = (messageArr[0] as Double).roundToInt(),
             profileImage = messageArr[1] as String,
             nickname = messageArr[2] as String,
             messageContent = messageArr[3] as String,
-            postTime = (messageArr[4] as Double).roundToInt()
+            forumId = (messageArr[4] as Double).roundToInt(),
+            postTime = (messageArr[5] as Double).toLong()
         )
         messagesList.add(message)
     }

@@ -14,8 +14,8 @@ class MessageCustom(context : Context, name : String, message: String, layout: C
         val view = inflate(context, R.layout.message_custom_sent, null)
         val params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
-        view.findViewById<TextView>(R.id.userName).text = name
-        view.findViewById<TextView>(R.id.userMessage).text = message
+        view.findViewById<TextView>(R.id.userNameSending).text = name
+        view.findViewById<TextView>(R.id.userMessageReceiving).text = message
 
         view.layoutParams = params
         layout.addView(view)

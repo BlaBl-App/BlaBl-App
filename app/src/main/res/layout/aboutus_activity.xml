@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blueDark">
@@ -17,12 +16,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        app:layout_constraintTop_toBottomOf="@+id/autors"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/autors">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,15 +36,16 @@
                 android:text="@string/titre_objectifs"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/objectifs"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -58,10 +57,12 @@
                 android:text="@string/mention_legal"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/legal_notices"
@@ -99,14 +100,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:srcCompat="@drawable/qypol_pp" />
+            app:srcCompat="@drawable/qypol_pp"
+            android:contentDescription="@string/qypol342" />
 
         <TextView
             android:id="@+id/nabilesall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:text="nabilesall"
+            android:text="@string/nabilesall"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -116,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
-            android:text="qypol342"
+            android:text="@string/qypol342"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -125,7 +127,7 @@
             android:id="@+id/icepick4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="icepick4"
+            android:text="@string/icepick4"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/qypol342"
@@ -139,7 +141,8 @@
             app:layout_constraintEnd_toStartOf="@+id/imageViewQypol342"
             app:layout_constraintStart_toEndOf="@+id/imageViewNabileSall"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:srcCompat="@drawable/icepick4_pp" />
+            app:srcCompat="@drawable/icepick4_pp"
+            android:contentDescription="@string/icepick4" />
 
         <ImageView
             android:id="@+id/imageViewNabileSall"
@@ -149,7 +152,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:srcCompat="@drawable/nabilesall_pp" />
+            app:srcCompat="@drawable/nabilesall_pp"
+            android:contentDescription="@string/nabilesall" />
 
         <TextView
             android:id="@+id/textView3"
@@ -196,7 +200,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/icon" />
+            app:srcCompat="@mipmap/icon"
+            android:contentDescription="@string/app_name" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -206,7 +211,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+            android:visibility="gone"
+            android:contentDescription="@string/todo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

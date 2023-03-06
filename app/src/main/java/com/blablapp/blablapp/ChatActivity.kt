@@ -1,42 +1,142 @@
 package com.blablapp.blablapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.chat_activity.*
 
 class ChatActivity : AppCompatActivity() {
 
     private var userName : String = ""
+    private var linkImage : String = ""
+    private var idForum : Int = -1
+    private lateinit var messageAdapter: MessageAdapter
+    private lateinit var listOfMessage: ArrayList<UserMessage>
+    private var lastMessageId: Int =-1
+    private var liveUpdate = true
+    private var nbMessageToShow = 10
+    private var noPullDown :Boolean = false
+
+
+    override fun onStop() {
+        super.onStop()
+        setLiveUpdate(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!getLiveUpdate()){
+            setLiveUpdate(true)
+            getMessage()
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            println("fake refresh")
+
+            nbMessageToShow += 5
+            noPullDown = true
+            setLastMessageId(-1)
+            swipeRefreshLayout.isRefreshing = false
+
+        }
 
         getMessage()
 
+        listOfMessage = ArrayList()
+        messageAdapter = MessageAdapter(this, listOfMessage)
+
+        messageRecyclerView.layoutManager = LinearLayoutManager(this)
+        messageRecyclerView.adapter = messageAdapter
+
+        userName = intent?.extras?.getString("user").toString()
+        linkImage = intent?.extras?.getString("linkImage").toString()
+        idForum = intent?.extras?.getInt("idForum").toString().toInt()
+
         sendMsg.setOnClickListener{
-            if (userTexForMsg.text?.isNotEmpty()!!) {
-                sendMessage()
-                val msg = userTexForMsg.text.toString()
-
-                userName = intent?.extras?.getString("user").toString()
-                MessageCustom(this, userName, msg, layout)
-
+            if (userTexForMsg.text?.isNotEmpty()!!){
+                val message = userTexForMsg.text.toString()
+                sendMessage(message, idForum)
                 userTexForMsg.text!!.clear()
             }
         }
     }
+    @Synchronized
+    fun getLiveUpdate():Boolean{
+        return liveUpdate
+    }
 
-    fun getMessage(){
+    @Synchronized
+    fun setLiveUpdate(newValue : Boolean){
+        liveUpdate = newValue
+    }
+    @Synchronized
+    fun getLastMessageId():Int{
+        return lastMessageId
+    }
+    private fun getMaxMessageId(messages: Array<Message>): Int {
+        return messages.maxByOrNull { it.id }?.id ?: Int.MIN_VALUE
+    }
+
+    fun getMinMessageId(messages: Array<Message>): Int {
+        return messages.minByOrNull { it.id }?.id ?: Int.MAX_VALUE
+    }
+
+    @Synchronized
+    fun setLastMessageId(newLastMessageId : Int){
+        lastMessageId = newLastMessageId
+    }
+
+    private fun getMessage(){
+
         val apiThread = Thread {
             try {
-                val  messages : Array<Message> = DAO.Companion.getMessages()
+                Log.d("MESSAGES FORUM", idForum.toString())
+                while (getLiveUpdate()){
+                    val servLastMessageId: Int = DAO.Companion.getLastMessageId(idForum)
+                    if (getLastMessageId() != servLastMessageId ){
+                        println("old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
+                        val  messages : Array<Message> = DAO.Companion.getMessages(nb=nbMessageToShow, forum=idForum)
+                        messages.reverse()
+                        setLastMessageId(getMaxMessageId(messages))
+                        runOnUiThread {
+                            listOfMessage.clear()
+                        }
+                        for (message in messages) {
+                            runOnUiThread {
+                                listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
+                                messageAdapter.notifyDataSetChanged()
+                            }
 
-                for (message in messages) {
-                    runOnUiThread {
-                        MessageCustom(this, message.nickname, message.messageContent, layout)
+                        }
+                        if (!noPullDown){
+                            println("pulling down")
+                            runOnUiThread {
+                                messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
+                            }
+                        }else{
+                            runOnUiThread {
+                                messageRecyclerView.smoothScrollToPosition(12)
+                            }
+                        }
+                        noPullDown = false
+
+
+                        setLastMessageId(servLastMessageId)
+
                     }
-                    
+                    Thread.sleep(300)
+
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -47,13 +147,14 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    fun sendMessage(){
+    private fun sendMessage(message : String, forum: Int){
         val apiThread = Thread {
             try {
                 //DAO.Companion.getMessages()
                 val nickname =intent?.extras?.getString("user").toString()
-                val message = userTexForMsg.text.toString()
-                DAO.Companion.postMessages( nickname,"",message)
+
+                DAO.Companion.postMessages( nickname,"",message, forum)
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
