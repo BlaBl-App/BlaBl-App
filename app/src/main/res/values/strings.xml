@@ -16,6 +16,9 @@
     <string name="forumName">Nom du forum</string>
     <string name="forumDescription">Description du forum</string>
     <string name="selectForum">Accéder à ce forum ?</string>
+    <string name="selectingForum">Choisissez un forum</string>
+    <string name="add">Ajouter</string>
+    <string name="cancel">Annuler</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="home">Accueil</string>

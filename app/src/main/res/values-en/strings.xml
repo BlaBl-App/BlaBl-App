@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="pseudo">nickname</string>
     <string name="btn_name">Let\'s Talk</string>
     <string name="msg">Message</string>
@@ -14,6 +13,10 @@
     <string name="addForumQuestion">Please enter the title and description of the forum</string>
     <string name="forumName">Forum name</string>
     <string name="forumDescription">Forum description</string>
+    <string name="selectForum">Access to this forum ?</string>
+    <string name="selectingForum">Select a forum</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="home">Home</string>

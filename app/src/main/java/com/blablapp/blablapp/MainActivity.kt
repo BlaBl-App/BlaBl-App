@@ -66,30 +66,12 @@ class MainActivity : AppCompatActivity() {
 
         buttonTalk.setOnClickListener {
             if (ProfilPseudo.text.toString() != "") {
-                this.user.pseudo = ProfilPseudo.text.toString()
-                val intent = Intent(this, ChatActivity::class.java)
-                intent.putExtra("user", this.user.pseudo)
-                intent.putExtra("linkImage", this.user.linkImage)
-                intent.putExtra("idForum",-1) // à changer et mettre le bon forum
+                val intent = Intent(this, ForumActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
             }
         }
-
-        /*val apiThread = Thread {
-            try {
-                DAO.Companion.getMessages()
-                DAO.Companion.get_all_forums()
-                DAO.Companion.postMessages("Mike","","hi there !")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }*/
-
-        // uncomment to activate api call test
-        //apiThread.start()
-
     }
 
     private val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
