@@ -3,9 +3,11 @@ package com.blablapp.blablapp
 import android.annotation.SuppressLint
 import android.util.Log
 import org.json.JSONObject
+import java.io.IOException
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.charset.StandardCharsets
 
 class DAO {
     companion object {
@@ -51,7 +53,6 @@ class DAO {
         }
 
         fun get_all_forums(): Array<Forum> {
-            Log.d("DEGUB FORUM URL", "$servIp/forums")
             val apiResponse = URL("$servIp/forums").readText()
             val json = JSONObject(apiResponse)
             val forums = json.getJSONArray("forums")
@@ -64,6 +65,57 @@ class DAO {
                 forumsList.add(Forum(forumId, forumName, forumDescription))
             }
             return forumsList.toTypedArray()
+        }
+
+        fun removeForum(forumId: Int) {
+            val url = URL("$servIp/forums")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "DELETE"
+
+            val postData = "id=$forumId".toByteArray(StandardCharsets.UTF_8)
+
+            connection.doOutput = true
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+            connection.setRequestProperty("charset", "utf-8")
+            connection.setRequestProperty("Content-Length", postData.size.toString())
+
+            try {
+                connection.outputStream.use { outputStream ->
+                    outputStream.write(postData)
+                }
+            } catch (e: IOException) {
+                // handle exception
+
+            }
+
+            val responseCode = connection.responseCode
+            // handle response code
+            println("response code $responseCode")
+        }
+
+        fun addForum(forumName: String, forumDescription: String) {
+            val url = URL("$servIp/forums")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "POST"
+
+            val postData = "name=$forumName&description=$forumDescription".toByteArray(StandardCharsets.UTF_8)
+
+            connection.doOutput = true
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+            connection.setRequestProperty("charset", "utf-8")
+            connection.setRequestProperty("Content-Length", postData.size.toString())
+
+            try {
+                connection.outputStream.use { outputStream ->
+                    outputStream.write(postData)
+                }
+            } catch (e: IOException) {
+                // handle exception
+            }
+
+            if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+                throw RuntimeException("Failed : HTTP error code : ${connection.responseCode}")
+            }
         }
     }
 

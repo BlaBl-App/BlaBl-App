@@ -55,12 +55,10 @@ class ForumActivity : AppCompatActivity() {
             try {
                 val forums = DAO.Companion.get_all_forums()
                 for (forum in forums){
-                    Log.d("DEBUG GET FORUM", forum.description)
                     runOnUiThread{
-                        forumList.add(Forum(forum.id, forum.name, forum.name))
+                        forumList.add(Forum(forum.id, forum.name, forum.description))
                         forumAdapter.notifyDataSetChanged()
                     }
-
                 }
             }
             catch(e: Exception) {

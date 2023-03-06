@@ -3,16 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/forumTitle"
-        />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/forumDescription"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forum Title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/forumTitle"
+            android:focusable="true"
+            android:clickable="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forum Description"
+            android:textSize="15sp"
+            android:id="@+id/forumDescription"
+            />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
