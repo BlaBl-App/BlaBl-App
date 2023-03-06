@@ -24,7 +24,6 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val forum = listOfForum[position]
-        Log.d("DEBUG FORUM", forum.toString())
         val forumViewHolder = holder as ForumViewHolder
         forumViewHolder.forumName.text = forum.name
         forumViewHolder.forumDescription.text = forum.description
@@ -48,8 +47,10 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
         alertDialog.setMessage(R.string.askRemoveForum)
         alertDialog.setPositiveButton(R.string.yes){dialog, which ->
             Toast.makeText(context, R.string.deletedForum, Toast.LENGTH_SHORT).show()
+            Log.d("DEBUG POSITION LIST", position.toString() )
             listOfForum.removeAt(position)
             notifyItemRemoved(position)
+            notifyDataSetChanged()
             apiThread.start()
         }
         alertDialog.setNegativeButton(R.string.no){dialog, which ->

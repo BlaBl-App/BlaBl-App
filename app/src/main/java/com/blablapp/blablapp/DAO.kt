@@ -97,21 +97,10 @@ class DAO {
             val url = URL("$servIp/forums")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "POST"
-
-            val postData = "name=$forumName&description=$forumDescription".toByteArray(StandardCharsets.UTF_8)
-
             connection.doOutput = true
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            connection.setRequestProperty("charset", "utf-8")
-            connection.setRequestProperty("Content-Length", postData.size.toString())
 
-            try {
-                connection.outputStream.use { outputStream ->
-                    outputStream.write(postData)
-                }
-            } catch (e: IOException) {
-                // handle exception
-            }
+            val postData = "name=$forumName&description=$forumDescription"
+            connection.outputStream.write(postData.toByteArray(charset("UTF-8")))
 
             if (connection.responseCode != HttpURLConnection.HTTP_OK) {
                 throw RuntimeException("Failed : HTTP error code : ${connection.responseCode}")

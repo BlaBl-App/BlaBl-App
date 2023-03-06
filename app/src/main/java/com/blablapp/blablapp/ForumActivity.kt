@@ -3,6 +3,9 @@ package com.blablapp.blablapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,6 +27,10 @@ class ForumActivity : AppCompatActivity() {
         forumAdapter = ForumAdapter(this, forumList)
         forumRecyclerView.layoutManager = LinearLayoutManager(this)
         forumRecyclerView.adapter = forumAdapter
+
+        addForumButton.setOnClickListener{
+            addForumDialog()
+        }
 
         bottomNavigationView.selectedItemId = R.id.forum
         bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item ->
@@ -50,14 +57,53 @@ class ForumActivity : AppCompatActivity() {
 
     }
 
+    private fun addForumDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_forum, null)
+        val inputName = dialogView.findViewById<EditText>(R.id.inputName)
+        val inputDescription = dialogView.findViewById<EditText>(R.id.inputDescription)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.addForum)
+            .setMessage(R.string.addForumQuestion)
+            .setView(dialogView)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                val forumName = inputName.text.toString()
+                val forumDescription = inputDescription.text.toString()
+                val apiThread = Thread {
+                    try {
+                        val forum = DAO.Companion.addForum(forumName, forumDescription)
+                        runOnUiThread {
+                            get_forums()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                apiThread.start()
+            }
+            .setNegativeButton(R.string.no) { _, _ -> }
+            .create()
+
+        dialog.show()
+    }
+
     private fun get_forums() {
         val apiThread = Thread {
             try {
                 val forums = DAO.Companion.get_all_forums()
                 for (forum in forums){
                     runOnUiThread{
-                        forumList.add(Forum(forum.id, forum.name, forum.description))
-                        forumAdapter.notifyDataSetChanged()
+                        //check if the server is already in the list
+                        var alreadyInList = false
+                        for (forumInList in forumList){
+                            if (forumInList.id == forum.id){
+                                alreadyInList = true
+                            }
+                        }
+                        if (!alreadyInList){
+                            forumList.add(forum)
+                            forumAdapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
