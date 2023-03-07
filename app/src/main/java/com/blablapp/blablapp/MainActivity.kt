@@ -25,7 +25,7 @@ import java.util.*
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    private var user : User = User("","", "")
+    private var user : User = User("","", "", "")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
@@ -164,13 +164,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDataUser() {
-        this.user = User("","", "")
+        this.user = User("","", "", "")
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val pseudo = sharedP.getString("pseudo", "")
         val linkImage = sharedP.getString("linkImage", "")
         val serverIp = sharedP.getString("serverIp", "")
-        if (pseudo != null && linkImage != null) {
-            this.user = User(pseudo, linkImage, serverIp!!)
+        val serverPort = sharedP.getString("serverPort", "")
+        if (pseudo != null && linkImage != null && serverIp != null && serverPort != null) {
+            this.user = User(pseudo, linkImage, serverIp, serverPort)
             if (this.user.linkImage.isNotEmpty()){
                 profilePic.setImageURI(this.user.linkImage.toUri())
             }else{

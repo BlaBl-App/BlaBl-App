@@ -15,7 +15,10 @@
     <string name="forumDescription">Forum description</string>
     <string name="selectForum">Access to this forum ?</string>
     <string name="selectingForum">Select a forum</string>
-    <string name="enterIp">Please enter the IP address of your server</string>
+    <string name="enterIp">IP address of your server</string>
+    <string name="enterPort">Port of your server</string>
+    <string name="port">Port (8080 by default)</string>
+    <string name="protocol">Protocol</string>
     <string name="correctIp">Please enter a correct IP address</string>
     <string name="ip">IP address</string>
     <string name="select">Select</string>

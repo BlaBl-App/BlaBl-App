@@ -23,13 +23,18 @@ class DAO {
             return json.getInt("last_message_id")
         }
 
-        fun setServIp(ip: String) {
+        fun setServIp(ip: String, port: String = "8080", protocol: String) {
             //check if ip contains http or https, if not add it
             if (!ip.contains("http://") && !ip.contains("https://")) {
-                servIp = "http://$ip"
+                servIp = concatenateIpAndPort(ip, port, protocol)
             } else {
-                servIp = ip
+                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, protocol)
             }
+            Log.d("DEBUG SERV IP ", servIp)
+        }
+
+        fun concatenateIpAndPort(ip: String, port: String, protocol: String): String {
+            return protocol + ip + ":" + port + "/api"
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0, forum: Int): Array<Message> {

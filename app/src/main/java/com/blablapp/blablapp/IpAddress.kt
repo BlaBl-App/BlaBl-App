@@ -11,28 +11,51 @@ class IpAddress : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ip_address)
         editTextServer.setText(getServerIp())
+        editTextPort.setText(getServerPort())
+        spinnerProtolcol.setSelection(getServerProtocol())
         buttonServer.setOnClickListener{
             if (editTextServer.text.toString() == "") {
                 Toast.makeText(this, R.string.correctIp, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val serverIp = editTextServer.text.toString()
-            DAO.Companion.setServIp(serverIp)
-            saveDataUser(serverIp)
+            val serverPort = editTextPort.text.toString()
+            var serverProtocol: String = ""
+            // 0 = http, 1 = https
+            if (spinnerProtolcol.selectedItemPosition == 0){
+                serverProtocol = "http://"
+            }
+            else{
+                serverProtocol = "https://"
+            }
+            DAO.Companion.setServIp(serverIp, serverPort, serverProtocol)
+            saveDataUser(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
             val intent = Intent(this, ForumActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun saveDataUser(serverIp: String) {
+    private fun saveDataUser(serverIp: String, serverPort: String = "8080", serverProtocol: Int) {
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val editor = sharedP.edit()
         editor.putString("serverIp", serverIp)
+        editor.putString("serverPort", serverPort)
+        editor.putInt("serverProtocol", serverProtocol)
         editor.apply()
     }
 
     private fun getServerIp(): String {
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         return sharedP.getString("serverIp", "")!!
+    }
+
+    private fun getServerPort(): String {
+        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
+        return sharedP.getString("serverPort", "")!!
+    }
+
+    private fun getServerProtocol(): Int {
+        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
+        return sharedP.getInt("serverProtocol", 0)
     }
 }

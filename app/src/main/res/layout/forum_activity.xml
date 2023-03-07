@@ -34,20 +34,20 @@
 
 
     <Button
+        android:id="@+id/addForumButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addForum"
-        android:id="@+id/addForumButton"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+
+    <Button
+        android:id="@+id/changeServerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addForum"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/addForumButton" />
 
 
 
