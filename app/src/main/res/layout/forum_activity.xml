@@ -38,16 +38,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addForum"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+        app:layout_constraintBottom_toTopOf="@+id/changeServerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/changeServerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addForum"
+        android:text="@string/changeServer"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addForumButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

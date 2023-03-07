@@ -19,6 +19,7 @@
     <string name="enterPort">Port of your server</string>
     <string name="port">Port (8080 by default)</string>
     <string name="protocol">Protocol</string>
+    <string name="changeServer">Server configuration</string>
     <string name="correctIp">Please enter a correct IP address</string>
     <string name="ip">IP address</string>
     <string name="select">Select</string>
