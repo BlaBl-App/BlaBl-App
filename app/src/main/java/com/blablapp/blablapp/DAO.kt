@@ -14,13 +14,22 @@ import java.nio.charset.StandardCharsets
 class DAO {
     companion object {
 
-        private var servIp: String = "http://tchoutchou.ovh:5555/api"
+        private lateinit var servIp: String
 
 
         fun getLastMessageId(forum: Int): Int {
             val apiResponse = URL("$servIp/last_message_id?forum=$forum").readText()
             val json = JSONObject(apiResponse)
             return json.getInt("last_message_id")
+        }
+
+        fun setServIp(ip: String) {
+            //check if ip contains http or https, if not add it
+            if (!ip.contains("http://") && !ip.contains("https://")) {
+                servIp = "http://$ip"
+            } else {
+                servIp = ip
+            }
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0, forum: Int): Array<Message> {
