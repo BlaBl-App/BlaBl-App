@@ -17,6 +17,16 @@
     <string name="forumDescription">Description du forum</string>
     <string name="selectForum">Accéder à ce forum ?</string>
     <string name="selectingForum">Choisissez un forum</string>
+    <string name="enterIp">Adresse IP de votre serveur</string>
+    <string name="enterPort">Port de votre serveur</string>
+    <string name="port">Port (8080 par défaut)</string>
+    <string name="protocol">Protocole</string>
+    <string name="changeServer">Configuration serveur</string>
+    <string name="noConnection">Veuillez vous connecter à internet ou revoyez la configuration serveur</string>
+    <string name="ip">Adresse IP</string>
+    <string name="noConnectionTitle">Erreur dans l\'obtention des forums</string>
+    <string name="correctIp">Veuillez entrer une adresse IP correcte</string>
+    <string name="select">Sélectionner</string>
     <string name="add">Ajouter</string>
     <string name="cancel">Annuler</string>
     <string name="yes">Oui</string>

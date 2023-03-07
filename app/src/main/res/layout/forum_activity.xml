@@ -27,14 +27,32 @@
         android:layout_alignParentEnd="true" />
 
     <Button
+        android:id="@+id/addForumButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addForum"
+<<<<<<< HEAD
+        app:layout_constraintBottom_toTopOf="@+id/changeServerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/changeServerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/changeServer"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+=======
         android:id="@+id/addForumButton"
         android:layout_marginBottom="20dp"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:layout_above="@id/bottomNavigationView" />
+>>>>>>> main
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
