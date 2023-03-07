@@ -29,20 +29,24 @@
 
         <activity
             android:name=".ChatActivity"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ForumActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AboutUsActivity"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".IpAddress"
-            android:exported="true" />
+            android:exported="true" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            tools:ignore="LockedOrientationActivity">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
