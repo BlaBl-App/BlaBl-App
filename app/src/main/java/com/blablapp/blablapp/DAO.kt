@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets
 class DAO {
     companion object {
 
-        private var servIp: String = "http://tchoutchou.ovh:5555/api"
+        private var servIp: String = "https://tchoutchou.ovh:5555/api"
 
 
         fun getLastMessageId(forum: Int): Int {
