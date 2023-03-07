@@ -2,9 +2,11 @@ package com.blablapp.blablapp
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.widget.Toast
 import org.json.JSONObject
 import java.io.IOException
 import java.io.OutputStreamWriter
+import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
@@ -49,19 +51,25 @@ class DAO {
             conn.disconnect()
         }
 
-        fun get_all_forums(): Array<Forum> {
-            val apiResponse = URL("$servIp/forums").readText()
-            val json = JSONObject(apiResponse)
-            val forums = json.getJSONArray("forums")
-            val forumsList = mutableListOf<Forum>()
-            for (i in 0 until forums.length()) {
-                val forum = forums.getJSONObject(i)
-                val forumId = forum.getInt("id")
-                val forumName = forum.getString("name")
-                val forumDescription = forum.getString("description")
-                forumsList.add(Forum(forumId, forumName, forumDescription))
+        fun getAllForums(): Array<Forum>{
+            try {
+                val apiResponse = URL("$servIp/forums").readText()
+                val json = JSONObject(apiResponse)
+                val forums = json.getJSONArray("forums")
+                val forumsList = mutableListOf<Forum>()
+                for (i in 0 until forums.length()) {
+                    val forum = forums.getJSONObject(i)
+                    val forumId = forum.getInt("id")
+                    val forumName = forum.getString("name")
+                    val forumDescription = forum.getString("description")
+                    forumsList.add(Forum(forumId, forumName, forumDescription))
+                }
+                return forumsList.toTypedArray()
             }
-            return forumsList.toTypedArray()
+            catch(e: ConnectException)
+            {
+                return arrayOf(Forum(-1, "No internet", "No internet"))
+            }
         }
 
         fun removeForum(forumId: Int) {

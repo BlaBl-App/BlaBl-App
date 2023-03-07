@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,9 +91,13 @@ class ForumActivity : AppCompatActivity() {
     private fun get_forums() {
         val apiThread = Thread {
             try {
-                val forums = DAO.Companion.get_all_forums()
+                val forums = DAO.Companion.getAllForums()
                 for (forum in forums){
                     runOnUiThread{
+                        if (forum.id == -1){
+                            Toast.makeText(this, "Please connect to the internet", Toast.LENGTH_SHORT).show()
+                            return@runOnUiThread
+                        }
                         //check if the server is already in the list
                         var alreadyInList = false
                         for (forumInList in forumList){
@@ -101,7 +106,6 @@ class ForumActivity : AppCompatActivity() {
                             }
                         }
                         if (!alreadyInList){
-                            Log.d("DEBUG ADDING FORUM LIST", forum.toString())
                             forumList.add(forum)
                             forumAdapter.notifyDataSetChanged()
                         }

@@ -66,22 +66,14 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
     }
 
     fun selectForum(position: Int, forumId: Int){
-        var alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle(R.string.forum)
-        alertDialog.setMessage(R.string.selectForum)
-        alertDialog.setPositiveButton(R.string.yes){dialog, which ->
-            val sharedP = context.getSharedPreferences("user",
-                AppCompatActivity.MODE_PRIVATE
-            )
-            val pseudo = sharedP.getString("pseudo", "")
-            val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("idForum", forumId)
-            intent.putExtra("user", pseudo)
-            ContextCompat.startActivity(context, intent, null)
-        }
-        alertDialog.setNegativeButton(R.string.no){dialog, which ->
-        }
-        alertDialog.show()
+        val sharedP = context.getSharedPreferences("user",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val pseudo = sharedP.getString("pseudo", "")
+        val intent = Intent(context, ChatActivity::class.java)
+        intent.putExtra("idForum", forumId)
+        intent.putExtra("user", pseudo)
+        ContextCompat.startActivity(context, intent, null)
     }
 
     class ForumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
