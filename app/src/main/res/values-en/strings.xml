@@ -20,6 +20,8 @@
     <string name="port">Port (8080 by default)</string>
     <string name="protocol">Protocol</string>
     <string name="changeServer">Server configuration</string>
+    <string name="noConnection">Please connect to the internet or change your server configuration</string>
+    <string name="noConnectionTitle">Error while loading the forums</string>
     <string name="correctIp">Please enter a correct IP address</string>
     <string name="ip">IP address</string>
     <string name="select">Select</string>

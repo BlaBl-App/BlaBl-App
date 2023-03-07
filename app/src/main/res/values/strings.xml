@@ -22,7 +22,9 @@
     <string name="port">Port (8080 par défaut)</string>
     <string name="protocol">Protocole</string>
     <string name="changeServer">Configuration serveur</string>
+    <string name="noConnection">Veuillez vous connecter à internet ou revoyez la configuration serveur</string>
     <string name="ip">Adresse IP</string>
+    <string name="noConnectionTitle">Erreur dans l\'obtention des forums</string>
     <string name="correctIp">Veuillez entrer une adresse IP correcte</string>
     <string name="select">Sélectionner</string>
     <string name="add">Ajouter</string>

@@ -33,6 +33,11 @@ class ForumActivity : AppCompatActivity() {
             addForumDialog()
         }
 
+        changeServerButton.setOnClickListener{
+            val intent = Intent(this, IpAddress::class.java)
+            startActivity(intent)
+        }
+
         bottomNavigationView.selectedItemId = R.id.forum
         bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item ->
             when (item.itemId) {
@@ -67,7 +72,7 @@ class ForumActivity : AppCompatActivity() {
             .setTitle(R.string.addForum)
             .setMessage(R.string.addForumQuestion)
             .setView(dialogView)
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setPositiveButton(R.string.add) { _, _ ->
                 val forumName = inputName.text.toString()
                 val forumDescription = inputDescription.text.toString()
                 val apiThread = Thread {
@@ -82,7 +87,7 @@ class ForumActivity : AppCompatActivity() {
                 }
                 apiThread.start()
             }
-            .setNegativeButton(R.string.no) { _, _ -> }
+            .setNegativeButton(R.string.cancel) { _, _ -> }
             .create()
 
         dialog.show()
@@ -95,7 +100,14 @@ class ForumActivity : AppCompatActivity() {
                 for (forum in forums){
                     runOnUiThread{
                         if (forum.id == -1){
-                            Toast.makeText(this, "Please connect to the internet", Toast.LENGTH_SHORT).show()
+                            val alert = AlertDialog.Builder(this)
+                            alert.setTitle(R.string.noConnectionTitle)
+                            alert.setMessage(R.string.noConnection)
+                            alert.setPositiveButton("OK") { _, _ ->
+                                val intent = Intent(this, IpAddress::class.java)
+                                startActivity(intent)
+                            }
+                            alert.show()
                             return@runOnUiThread
                         }
                         //check if the server is already in the list
