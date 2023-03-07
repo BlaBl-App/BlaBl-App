@@ -29,7 +29,6 @@
 
         <activity
             android:name=".ChatActivity"
-<<<<<<< HEAD
             android:exported="true" />
         <activity
             android:name=".ForumActivity"
@@ -40,18 +39,6 @@
         <activity
             android:name=".IpAddress"
             android:exported="true" />
-=======
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ForumActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity
-            android:name=".AboutUsActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity"/>
->>>>>>> main
         <activity
             android:name=".MainActivity"
             android:exported="true"
