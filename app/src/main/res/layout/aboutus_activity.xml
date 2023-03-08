@@ -203,17 +203,28 @@
             app:srcCompat="@mipmap/icon"
             android:contentDescription="@string/app_name" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="30dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/iconBackBig"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
-            android:visibility="gone"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iconBack"
+                android:layout_width="40dp"
+                android:layout_height="53dp"
+                android:contentDescription="back"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

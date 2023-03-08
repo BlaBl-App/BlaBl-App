@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
-        
+
 
         iconInfo.setOnClickListener{
             val intent = Intent(applicationContext, AboutUsActivity::class.java)

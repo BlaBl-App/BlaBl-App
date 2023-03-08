@@ -92,6 +92,7 @@
         <ImageView
             android:id="@+id/iconInfo"
             android:layout_width="50dp"
+            android:layout_marginRight="20dp"
             android:layout_height="match_parent"
             android:src="@drawable/baseline_info_24"
 
