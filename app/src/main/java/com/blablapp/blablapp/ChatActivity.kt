@@ -13,7 +13,7 @@ class ChatActivity : AppCompatActivity() {
     private var linkImage : String = ""
     private var idForum : Int = -1
     private lateinit var messageAdapter: MessageAdapter
-    private lateinit var listOfMessage: ArrayList<UserMessage>
+    private lateinit var listOfMessage: ArrayList<Message>
     private var lastMessageId: Int =-1
     private var liveUpdate = true
     private var nbMessageToShow = 10
@@ -29,27 +29,24 @@ class ChatActivity : AppCompatActivity() {
         super.onResume()
         if (!getLiveUpdate()){
             setLiveUpdate(true)
-            getMessage()
+            launchMessageProcess()
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chat_activity)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        //if swiping down, refresh the list of messages (+5)
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
-            println("fake refresh")
-
             nbMessageToShow += 5
             noPullDown = true
             setLastMessageId(-1)
             swipeRefreshLayout.isRefreshing = false
-
         }
 
-        getMessage()
+        launchMessageProcess()
 
         listOfMessage = ArrayList()
         messageAdapter = MessageAdapter(this, listOfMessage)
@@ -86,25 +83,20 @@ class ChatActivity : AppCompatActivity() {
         return messages.maxByOrNull { it.id }?.id ?: Int.MIN_VALUE
     }
 
-    fun getMinMessageId(messages: Array<Message>): Int {
-        return messages.minByOrNull { it.id }?.id ?: Int.MAX_VALUE
-    }
-
     @Synchronized
     fun setLastMessageId(newLastMessageId : Int){
         lastMessageId = newLastMessageId
     }
 
-    private fun getMessage(){
+    private fun launchMessageProcess(){
 
         val apiThread = Thread {
             try {
-                Log.d("MESSAGES FORUM", idForum.toString())
                 while (getLiveUpdate()){
-                    val servLastMessageId: Int = DAO.Companion.getLastMessageId(idForum)
+                    val servLastMessageId: Int = DAO.getLastMessageId(idForum)
                     if (getLastMessageId() != servLastMessageId ){
-                        println("old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
-                        val  messages : Array<Message> = DAO.Companion.getMessages(nb=nbMessageToShow, forum=idForum)
+                        Log.d("DEBUG GET MESSAGES","old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
+                        val  messages : Array<Message> = DAO.getMessages(nb=nbMessageToShow, forum=idForum)
                         messages.reverse()
                         setLastMessageId(getMaxMessageId(messages))
                         runOnUiThread {
@@ -112,13 +104,12 @@ class ChatActivity : AppCompatActivity() {
                         }
                         for (message in messages) {
                             runOnUiThread {
-                                listOfMessage.add(UserMessage(idForum, message.postTime, message.nickname, linkImage, message.messageContent))
+                                val newMessage = Message(idForum, linkImage, message.nickname, message.messageContent, message.forumId, message.postTime)
+                                listOfMessage.add(newMessage)
                                 messageAdapter.notifyDataSetChanged()
                             }
-
                         }
                         if (!noPullDown){
-                            println("pulling down")
                             runOnUiThread {
                                 messageRecyclerView.smoothScrollToPosition(messageAdapter.itemCount - 1)
                             }
@@ -127,38 +118,26 @@ class ChatActivity : AppCompatActivity() {
                             messageRecyclerView.smoothScrollToPosition(0)
                         }
                         noPullDown = false
-
                         setLastMessageId(servLastMessageId)
-
                     }
                     Thread.sleep(300)
-
                 }
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-        // uncomment to activate api call test
         apiThread.start()
-
     }
 
     private fun sendMessage(message : String, forum: Int){
         val apiThread = Thread {
             try {
-                //DAO.Companion.getMessages()
                 val nickname =intent?.extras?.getString("user").toString()
-
-                DAO.Companion.postMessages( nickname,"",message, forum)
-
+                DAO.postMessages( nickname,"",message, forum)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-        // uncomment to activate api call test
         apiThread.start()
     }
 }

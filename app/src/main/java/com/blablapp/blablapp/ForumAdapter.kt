@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ForumAdapter(private var context: Context, private var listOfForum: ArrayList<Forum>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ForumViewHolder(
@@ -31,41 +31,39 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
         forumViewHolder.forumName.text = forum.name
         forumViewHolder.forumDescription.text = forum.description
         forumViewHolder.itemView.setOnLongClickListener{
-            removeForum(position, forum.name, forum.id)
+            removeForum(position, forum.id)
             true
         }
         forumViewHolder.itemView.setOnClickListener{
-            selectForum(position, forum.id)
+            selectForum(forum.id)
         }
     }
 
-    fun removeForum(position: Int, forumName: String, forumId: Int){
-        var apiThread = Thread{
+    private fun removeForum(position: Int, forumId: Int){
+        val apiThread = Thread{
             try{
-                DAO.Companion.removeForum(forumId)
+                DAO.removeForum(forumId)
             }
             catch (e: Exception){
                 Log.d("DEBUG", e.toString())
             }
         }
-        var alertDialog = AlertDialog.Builder(context)
+        val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle(R.string.removeForum)
         alertDialog.setMessage(R.string.askRemoveForum)
-        alertDialog.setPositiveButton(R.string.yes){dialog, which ->
+        alertDialog.setPositiveButton(R.string.yes){_, _ ->
             Toast.makeText(context, R.string.deletedForum, Toast.LENGTH_SHORT).show()
-            Log.d("DEBUG POSITION LIST", position.toString() )
             listOfForum.removeAt(position)
             notifyItemRemoved(position)
-            notifyDataSetChanged()
             apiThread.start()
         }
-        alertDialog.setNegativeButton(R.string.no){dialog, which ->
+        alertDialog.setNegativeButton(R.string.no){_, _ ->
             Toast.makeText(context, R.string.notDeletedForum, Toast.LENGTH_SHORT).show()
         }
         alertDialog.show()
     }
 
-    fun selectForum(position: Int, forumId: Int){
+    private fun selectForum(forumId: Int){
         val sharedP = context.getSharedPreferences("user",
             AppCompatActivity.MODE_PRIVATE
         )
@@ -77,7 +75,7 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
     }
 
     class ForumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val forumName = itemView.findViewById<TextView>(R.id.forumTitle)
-        val forumDescription = itemView.findViewById<TextView>(R.id.forumDescription)
+        val forumName: TextView = itemView.findViewById(R.id.forumTitle)
+        val forumDescription: TextView = itemView.findViewById(R.id.forumDescription)
     }
 }

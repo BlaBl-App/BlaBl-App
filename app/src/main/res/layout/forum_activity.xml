@@ -39,19 +39,9 @@
         android:id="@+id/changeServerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/changeServer"
-        android:layout_centerInParent="true"
-        android:layout_above="@id/bottomNavigationView"/>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/blue"
-        app:itemTextColor="@drawable/selector_item"
-        app:itemIconTint="@drawable/selector_item"
-        app:menu="@menu/bottom_menu" />
+        android:layout_centerInParent="true"
+        android:text="@string/changeServer" />
+
 
 </RelativeLayout>

@@ -1,8 +1,8 @@
 package com.blablapp.blablapp
 
-import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_ip_address.*
 import org.json.JSONObject
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -16,38 +16,41 @@ class DAO {
 
         private lateinit var servIp: String
 
-
         fun getLastMessageId(forum: Int): Int {
             val apiResponse = URL("$servIp/last_message_id?forum=$forum").readText()
             val json = JSONObject(apiResponse)
             return json.getInt("last_message_id")
         }
 
-        fun setServIp(ip: String, port: String = "8080", protocol: String) {
+        fun setServIp(ip: String, port: String = "8080", protocol: Int) {
+            // 0 = http, 1 = https
+            val serverProtocol: String = if (protocol == 0){
+                "https://"
+            } else{
+                "http://"
+            }
             //check if ip contains http or https, if not add it
             if (!ip.contains("http://") && !ip.contains("https://")) {
-                servIp = concatenateIpAndPort(ip, port, protocol)
+                servIp = concatenateIpAndPort(ip, port, serverProtocol)
             } else {
-                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, protocol)
+                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, serverProtocol)
             }
             Log.d("DEBUG SERV IP ", servIp)
         }
 
-        fun concatenateIpAndPort(ip: String, port: String, protocol: String): String {
-            return protocol + ip + ":" + port + "/api"
+        private fun concatenateIpAndPort(ip: String, port: String, protocol: String): String {
+            return "$protocol$ip:$port/api"
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0, forum: Int): Array<Message> {
-            println("request $servIp/message?nb=$nb&start=$start&forum=$forum")
             val apiResponse = URL("$servIp/message?nb=$nb&start=$start&forum=$forum").readText()
             return parseMessageJson(apiResponse)
         }
 
         fun postMessages(nickname:String, profilePick:String, messsageContent: String, forum: Int)
         {
-            val url = URL(servIp+"/message")
+            val url = URL("$servIp/message")
             val postData="pick=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
-            println("post data ${postData}")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.doOutput = true
@@ -61,14 +64,16 @@ class DAO {
             }
 
             val jsonString = conn.inputStream.bufferedReader().use { it.readText() }
-            println(jsonString)
+            Log.d("DEBUG INSERT MESSAGE", jsonString)
             conn.disconnect()
         }
 
         fun getAllForums(): Array<Forum>{
             try {
-                val apiResponse = URL("$servIp/forums").readText()
-                val json = JSONObject(apiResponse)
+                val apiResponse = URL("$servIp/forums")
+                val conn = apiResponse.openConnection() as HttpURLConnection
+                conn.connectTimeout = 3000
+                val json = JSONObject(apiResponse.readText())
                 val forums = json.getJSONArray("forums")
                 val forumsList = mutableListOf<Forum>()
                 for (i in 0 until forums.length()) {
@@ -78,10 +83,12 @@ class DAO {
                     val forumDescription = forum.getString("description")
                     forumsList.add(Forum(forumId, forumName, forumDescription))
                 }
+                conn.disconnect()
                 return forumsList.toTypedArray()
             }
-            catch(e: ConnectException)
+            catch(e: Exception)
             {
+                Log.d("DEBUG CONNECTION", "No internet")
                 return arrayOf(Forum(-1, "No internet", "No internet"))
             }
         }
@@ -103,13 +110,13 @@ class DAO {
                     outputStream.write(postData)
                 }
             } catch (e: IOException) {
-                // handle exception
-
+                e.printStackTrace()
             }
 
             val responseCode = connection.responseCode
-            // handle response code
-            println("response code $responseCode")
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw RuntimeException("Failed : HTTP error code : $responseCode")
+            }
         }
 
         fun addForum(forumName: String, forumDescription: String) {
@@ -125,6 +132,7 @@ class DAO {
                 throw RuntimeException("Failed : HTTP error code : ${connection.responseCode}")
             }
         }
+
     }
 
 

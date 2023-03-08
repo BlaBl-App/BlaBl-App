@@ -19,7 +19,7 @@
     <string name="selectingForum">Choisissez un forum</string>
     <string name="enterIp">Adresse IP de votre serveur</string>
     <string name="enterPort">Port de votre serveur</string>
-    <string name="port">Port (8080 par défaut)</string>
+    <string name="port">Port (5555 par défaut)</string>
     <string name="protocol">Protocole</string>
     <string name="changeServer">Configuration serveur</string>
     <string name="noConnection">Veuillez vous connecter à internet ou revoyez la configuration serveur</string>
@@ -49,4 +49,8 @@ Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </stri
     <string name="nabilesall">nabilesall</string>
     <string name="pp_nabile">photo de profil nabile sall</string>
     <string name="todo">todo</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
