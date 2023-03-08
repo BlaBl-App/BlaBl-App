@@ -49,7 +49,7 @@ class ChatActivity : AppCompatActivity() {
         launchMessageProcess()
 
         listOfMessage = ArrayList()
-        messageAdapter = MessageAdapter(this, this,listOfMessage)
+        messageAdapter = MessageAdapter(this,listOfMessage)
 
         messageRecyclerView.layoutManager = LinearLayoutManager(this)
         messageRecyclerView.adapter = messageAdapter
