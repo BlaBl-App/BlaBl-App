@@ -3,16 +3,23 @@ package com.blablapp.blablapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.content.SharedPreferences
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_ip_address.*
 
 class ServerConfig : AppCompatActivity() {
+
+    private lateinit var sharedP: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ip_address)
+        sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         editTextServer.setText(getServerIp())
         editTextPort.setText(getServerPort())
         spinnerProtolcol.setSelection(getServerProtocol())
+        Log.d("DEBUG LAUNCH SERVER CONFIG", "HERE")
         buttonServer.setOnClickListener{
             if (editTextServer.text.toString() == ""){
                 Toast.makeText(this, R.string.correctIp, Toast.LENGTH_SHORT).show()
@@ -24,13 +31,8 @@ class ServerConfig : AppCompatActivity() {
             } else{
                 editTextPort.text.toString()
             }
-            // 0 = http, 1 = https
-            val serverProtocol: String = if (spinnerProtolcol.selectedItemPosition == 0){
-                "https://"
-            } else{
-                "http://"
-            }
-            DAO.setServIp(serverIp, serverPort, serverProtocol)
+
+            DAO.setServIp(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
             saveDataUser(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
             val intent = Intent(this, ForumActivity::class.java)
             startActivity(intent)
@@ -38,7 +40,6 @@ class ServerConfig : AppCompatActivity() {
     }
 
     private fun saveDataUser(serverIp: String, serverPort: String = "5555", serverProtocol: Int) {
-        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val editor = sharedP.edit()
         editor.putString("serverIp", serverIp)
         editor.putString("serverPort", serverPort)
@@ -47,17 +48,14 @@ class ServerConfig : AppCompatActivity() {
     }
 
     private fun getServerIp(): String {
-        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         return sharedP.getString("serverIp", "")!!
     }
 
     private fun getServerPort(): String {
-        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         return sharedP.getString("serverPort", "")!!
     }
 
     private fun getServerProtocol(): Int {
-        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         return sharedP.getInt("serverProtocol", 0)
     }
 }

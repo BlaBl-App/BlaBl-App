@@ -1,6 +1,8 @@
 package com.blablapp.blablapp
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_ip_address.*
 import org.json.JSONObject
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -20,12 +22,18 @@ class DAO {
             return json.getInt("last_message_id")
         }
 
-        fun setServIp(ip: String, port: String = "8080", protocol: String) {
+        fun setServIp(ip: String, port: String = "8080", protocol: Int) {
+            // 0 = http, 1 = https
+            val serverProtocol: String = if (protocol == 0){
+                "https://"
+            } else{
+                "http://"
+            }
             //check if ip contains http or https, if not add it
             if (!ip.contains("http://") && !ip.contains("https://")) {
-                servIp = concatenateIpAndPort(ip, port, protocol)
+                servIp = concatenateIpAndPort(ip, port, serverProtocol)
             } else {
-                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, protocol)
+                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, serverProtocol)
             }
             Log.d("DEBUG SERV IP ", servIp)
         }
@@ -62,8 +70,10 @@ class DAO {
 
         fun getAllForums(): Array<Forum>{
             try {
-                val apiResponse = URL("$servIp/forums").readText()
-                val json = JSONObject(apiResponse)
+                val apiResponse = URL("$servIp/forums")
+                val conn = apiResponse.openConnection() as HttpURLConnection
+                conn.connectTimeout = 3000
+                val json = JSONObject(apiResponse.readText())
                 val forums = json.getJSONArray("forums")
                 val forumsList = mutableListOf<Forum>()
                 for (i in 0 until forums.length()) {
@@ -73,10 +83,12 @@ class DAO {
                     val forumDescription = forum.getString("description")
                     forumsList.add(Forum(forumId, forumName, forumDescription))
                 }
+                conn.disconnect()
                 return forumsList.toTypedArray()
             }
-            catch(e: ConnectException)
+            catch(e: Exception)
             {
+                Log.d("DEBUG CONNECTION", "No internet")
                 return arrayOf(Forum(-1, "No internet", "No internet"))
             }
         }
@@ -120,6 +132,7 @@ class DAO {
                 throw RuntimeException("Failed : HTTP error code : ${connection.responseCode}")
             }
         }
+
     }
 
 
