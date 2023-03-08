@@ -35,7 +35,7 @@ class ForumAdapter(var context: Context, var listOfForum: ArrayList<Forum>) : Re
             true
         }
         forumViewHolder.itemView.setOnClickListener{
-            selectForum(forum.id, forum.id)
+            selectForum(position, forum.id)
         }
     }
 

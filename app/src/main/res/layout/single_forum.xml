@@ -7,23 +7,24 @@
     android:padding="10dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/forumCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_margin="25dp"
             app:cardCornerRadius="15dp"
-            tools:layout_editor_absoluteX="15dp">
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="10dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/blue40"
 
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp">
+                    >
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginEnd="9dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="vertical"
@@ -33,8 +34,10 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                                 <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:clickable="false"
                                     app:cardCornerRadius="15dp">
 
                                         <TextView
@@ -42,12 +45,13 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:background="@color/blue50"
-                                            android:clickable="true"
+                                            android:clickable="false"
                                             android:focusable="true"
-                                            android:padding="5dp"
+                                            android:paddingHorizontal="15dp"
+                                            android:paddingVertical="7dp"
                                             android:text="Forum Title"
                                             android:textColor="@color/white"
-                                            android:textSize="30sp"
+                                            android:textSize="22sp"
                                             android:textStyle="bold" />
                                 </androidx.cardview.widget.CardView>
 
@@ -56,10 +60,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:focusable="true"
-                                    android:padding="5dp"
+                                    android:padding="15dp"
                                     android:text="Forum Description"
                                     android:textColor="@color/white"
-                                    android:textSize="20sp" />
+                                    android:textSize="15sp" />
 
                         </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
