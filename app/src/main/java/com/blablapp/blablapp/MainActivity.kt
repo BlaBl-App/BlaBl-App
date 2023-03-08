@@ -1,6 +1,6 @@
 package com.blablapp.blablapp
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,48 +10,23 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.setup_profil_activity.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    private var user : User = User("","", "", "")
+    private var user : User = User("","")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
-
-        bottomNavigationView.selectedItemId = R.id.home
-        bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@ { item ->
-            when (item.itemId) {
-                R.id.home -> {
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.forum -> {
-                    val intent = Intent(applicationContext, ForumActivity::class.java)
-                    //intent.putExtra("user", this.user.pseudo)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.about_us -> {
-                    val intent = Intent(applicationContext, AboutUsActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
 
         loadDataUser()
 
@@ -68,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         buttonTalk.setOnClickListener {
             if (ProfilPseudo.text.toString() != "") {
                 this.user.pseudo = ProfilPseudo.text.toString()
-                val intent = Intent(this, IpAddress::class.java)
+                val intent = Intent(this, ServerConfig::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
@@ -76,32 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.home -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.forum -> {
-                val intent = Intent(this, ForumActivity::class.java)
-                //intent.putExtra("user", this.user.pseudo)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.about_us -> {
-                val intent = Intent(this, AboutUsActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
             val imageUri = data?.data
             this.user.linkImage = uploadImageFromGallery(imageUri!!)
             profilePic.setImageURI(imageUri)
@@ -114,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         val fileProvider = FileProvider.getUriForFile(this,"com.blablapp.blablapp", file)
         galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
         galleryIntent.type = "image/*"
-        startActivityForResult(galleryIntent, 1)
+        resultLauncher.launch(galleryIntent)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -142,9 +94,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun createFileBM(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = getExternalFilesDir(DIRECTORY_PICTURES)
         return File.createTempFile(imageFileName, ".jpg", storageDir)
@@ -164,14 +115,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDataUser() {
-        this.user = User("","", "", "")
+        this.user = User("","")
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val pseudo = sharedP.getString("pseudo", "")
         val linkImage = sharedP.getString("linkImage", "")
-        val serverIp = sharedP.getString("serverIp", "")
-        val serverPort = sharedP.getString("serverPort", "")
-        if (pseudo != null && linkImage != null && serverIp != null && serverPort != null) {
-            this.user = User(pseudo, linkImage, serverIp, serverPort)
+        if (pseudo != null && linkImage != null) {
+            this.user = User(pseudo, linkImage)
             if (this.user.linkImage.isNotEmpty()){
                 profilePic.setImageURI(this.user.linkImage.toUri())
             }else{

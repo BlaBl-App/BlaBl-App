@@ -40,7 +40,7 @@
             android:exported="true" 
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".IpAddress"
+            android:name=".ServerConfig"
             android:exported="true" 
             android:screenOrientation="portrait"/>
         <activity

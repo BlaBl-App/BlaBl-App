@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_ip_address.*
 
-class IpAddress : AppCompatActivity() {
+class ServerConfig : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ip_address)
@@ -20,15 +20,13 @@ class IpAddress : AppCompatActivity() {
             }
             val serverIp = editTextServer.text.toString()
             val serverPort = editTextPort.text.toString()
-            var serverProtocol: String = ""
             // 0 = http, 1 = https
-            if (spinnerProtolcol.selectedItemPosition == 0){
-                serverProtocol = "http://"
+            val serverProtocol: String = if (spinnerProtolcol.selectedItemPosition == 0){
+                "http://"
+            } else{
+                "https://"
             }
-            else{
-                serverProtocol = "https://"
-            }
-            DAO.Companion.setServIp(serverIp, serverPort, serverProtocol)
+            DAO.setServIp(serverIp, serverPort, serverProtocol)
             saveDataUser(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
             val intent = Intent(this, ForumActivity::class.java)
             startActivity(intent)

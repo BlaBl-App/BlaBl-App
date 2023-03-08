@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMessage>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter(private val context: Context, private val listOfMessage: ArrayList<Message>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val VIEW_TYPE_SENT = 1
-    val VIEW_TYPE_RECEIVED = 2
+    private val viewTypeSent = 1
+    private val viewTypeReceived = 2
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_SENT) {
+        return if (viewType == viewTypeSent) {
             val view = View.inflate(context, R.layout.message_custom_sent, null)
             SentMessageViewHolder(view)
         } else {
@@ -36,14 +36,14 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
         if (holder.javaClass == SentMessageViewHolder::class.java) {
             val sentMessageViewHolder = holder as SentMessageViewHolder
             sentMessageViewHolder.userNameSending.text = message.nickname
-            sentMessageViewHolder.userMessageSending.text = message.message
-            sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime.toLong())
+            sentMessageViewHolder.userMessageSending.text = message.messageContent
+            sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime)
 
         } else {
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
-            receivedMessageViewHolder.userMessageReceiving.text = message.message
-            receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime.toLong())
+            receivedMessageViewHolder.userMessageReceiving.text = message.messageContent
+            receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
         }
     }
 
@@ -51,39 +51,29 @@ class MessageAdapter(val context: Context, val listOfMessage: ArrayList<UserMess
         val pseudo = context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE).getString("pseudo", "")
         val message = listOfMessage[position]
 
-        return if (message.nickname.toString() == pseudo) {
-            VIEW_TYPE_SENT
+        return if (message.nickname == pseudo) {
+            viewTypeSent
         } else {
-            VIEW_TYPE_RECEIVED
+            viewTypeReceived
         }
     }
 
     class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val userNameSending = itemView.findViewById<TextView>(R.id.userNameSending)
-        val userMessageSending = itemView.findViewById<TextView>(R.id.userMessageSending)
-        val userDateSending = itemView.findViewById<TextView>(R.id.userMessageTimeSending)
+        val userNameSending: TextView = itemView.findViewById(R.id.userNameSending)
+        val userMessageSending: TextView = itemView.findViewById(R.id.userMessageSending)
+        val userDateSending: TextView = itemView.findViewById(R.id.userMessageTimeSending)
     }
 
     class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val userNameReceiving = itemView.findViewById<TextView>(R.id.userNameReceiving)
-        val userMessageReceiving = itemView.findViewById<TextView>(R.id.userMessageReceiving)
-        val userDateReceiving = itemView.findViewById<TextView>(R.id.userMessageTimeReceiving)
+        val userNameReceiving: TextView = itemView.findViewById(R.id.userNameReceiving)
+        val userMessageReceiving: TextView = itemView.findViewById(R.id.userMessageReceiving)
+        val userDateReceiving: TextView = itemView.findViewById(R.id.userMessageTimeReceiving)
     }
 
     private fun getDateFromTimestamp(timestamp: Long): String {
         val date = Date(timestamp)
         val format = SimpleDateFormat("dd LLL yyyy, HH:mm" , Locale.FRANCE)
         return format.format(date)
-    }
-
-    fun removeOuterQuotes(s: String): String {
-        if (s.startsWith("\"") && s.endsWith("\"")) {
-            return s.removeSurrounding("\"")
-        } else {
-            return s
-        }
     }
 
 }
