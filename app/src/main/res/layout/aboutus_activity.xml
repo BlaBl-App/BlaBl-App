@@ -186,7 +186,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerAboutUs"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:background="@drawable/background_top_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

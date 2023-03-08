@@ -67,12 +67,13 @@
             android:contentDescription="" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardView"
-        android:layout_width="240dp"
+        android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_marginTop="80dp"
-        app:cardCornerRadius="30dp"
+        android:background="@drawable/background_top_bar"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -80,11 +81,18 @@
         <ImageView
             android:id="@+id/iconeBigSize"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
-            android:contentDescription=""
+            android:background="@color/blue"
+            android:contentDescription="Logo with name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@mipmap/icbigsize" />
 
-    </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
