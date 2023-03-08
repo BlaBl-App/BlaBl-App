@@ -6,12 +6,12 @@ import kotlin.math.roundToInt
 
 class Message(
     @SerializedName("id") var id: Int,
-    @SerializedName("pick") var profileImage: String,
+    @SerializedName("pic") var profileImage: String,
     @SerializedName("nickname") var nickname: String,
     @SerializedName("messageContent") var messageContent: String,
     @SerializedName("forum") var forumId: Int,
     @SerializedName("postTime") var postTime: Long
-)
+): java.io.Serializable
 
 fun parseMessageJson(json: String): Array<Message> {
     val gson = Gson()
@@ -19,7 +19,6 @@ fun parseMessageJson(json: String): Array<Message> {
     val messagesList = mutableListOf<Message>()
 
     for (messageArr in jsonResponse.messages) {
-
         val message = Message(
             id = (messageArr[0] as Double).roundToInt(),
             profileImage = messageArr[1] as String,
@@ -30,7 +29,6 @@ fun parseMessageJson(json: String): Array<Message> {
         )
         messagesList.add(message)
     }
-
     return messagesList.toTypedArray()
 }
 

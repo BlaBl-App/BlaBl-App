@@ -2,19 +2,13 @@ package com.blablapp.blablapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.forum_activity.*
-import kotlinx.android.synthetic.main.setup_profil_activity.*
-import kotlinx.android.synthetic.main.setup_profil_activity.bottomNavigationView
 
-@Suppress("DEPRECATION")
 class ForumActivity : AppCompatActivity() {
 
     private lateinit var forumAdapter : ForumAdapter
@@ -23,7 +17,7 @@ class ForumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forum_activity)
 
-        get_forums()
+        getForums()
         forumList = ArrayList()
         forumAdapter = ForumAdapter(this, forumList)
         forumRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -34,31 +28,8 @@ class ForumActivity : AppCompatActivity() {
         }
 
         changeServerButton.setOnClickListener{
-            val intent = Intent(this, IpAddress::class.java)
+            val intent = Intent(this, ServerConfig::class.java)
             startActivity(intent)
-        }
-
-        bottomNavigationView.selectedItemId = R.id.forum
-        bottomNavigationView.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{ item ->
-            when (item.itemId) {
-                R.id.home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    //intent.putExtra("user", this.user.pseudo)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.forum -> {
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.about_us -> {
-                    val intent = Intent(this, AboutUsActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
         }
 
     }
@@ -77,9 +48,9 @@ class ForumActivity : AppCompatActivity() {
                 val forumDescription = inputDescription.text.toString()
                 val apiThread = Thread {
                     try {
-                        val forum = DAO.Companion.addForum(forumName, forumDescription)
+                        DAO.addForum(forumName, forumDescription)
                         runOnUiThread {
-                            get_forums()
+                            getForums()
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -89,22 +60,22 @@ class ForumActivity : AppCompatActivity() {
             }
             .setNegativeButton(R.string.cancel) { _, _ -> }
             .create()
-
         dialog.show()
     }
 
-    private fun get_forums() {
+    private fun getForums() {
         val apiThread = Thread {
             try {
-                val forums = DAO.Companion.getAllForums()
+                val forums = DAO.getAllForums()
                 for (forum in forums){
                     runOnUiThread{
+                        //no connection
                         if (forum.id == -1){
                             val alert = AlertDialog.Builder(this)
                             alert.setTitle(R.string.noConnectionTitle)
                             alert.setMessage(R.string.noConnection)
                             alert.setPositiveButton("OK") { _, _ ->
-                                val intent = Intent(this, IpAddress::class.java)
+                                val intent = Intent(this, ServerConfig::class.java)
                                 startActivity(intent)
                             }
                             alert.show()

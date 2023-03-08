@@ -1,8 +1,6 @@
 package com.blablapp.blablapp
 
-import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.Toast
 import org.json.JSONObject
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -15,7 +13,6 @@ class DAO {
     companion object {
 
         private lateinit var servIp: String
-
 
         fun getLastMessageId(forum: Int): Int {
             val apiResponse = URL("$servIp/last_message_id?forum=$forum").readText()
@@ -33,21 +30,19 @@ class DAO {
             Log.d("DEBUG SERV IP ", servIp)
         }
 
-        fun concatenateIpAndPort(ip: String, port: String, protocol: String): String {
-            return protocol + ip + ":" + port + "/api"
+        private fun concatenateIpAndPort(ip: String, port: String, protocol: String): String {
+            return "$protocol$ip:$port/api"
         }
 
         fun getMessages(nb:Int = 10, start:Int = 0, forum: Int): Array<Message> {
-            println("request $servIp/message?nb=$nb&start=$start&forum=$forum")
             val apiResponse = URL("$servIp/message?nb=$nb&start=$start&forum=$forum").readText()
             return parseMessageJson(apiResponse)
         }
 
         fun postMessages(nickname:String, profilePick:String, messsageContent: String, forum: Int)
         {
-            val url = URL(servIp+"/message")
+            val url = URL("$servIp/message")
             val postData="pick=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
-            println("post data ${postData}")
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.doOutput = true
@@ -61,7 +56,7 @@ class DAO {
             }
 
             val jsonString = conn.inputStream.bufferedReader().use { it.readText() }
-            println(jsonString)
+            Log.d("DEBUG INSERT MESSAGE", jsonString)
             conn.disconnect()
         }
 
@@ -103,13 +98,13 @@ class DAO {
                     outputStream.write(postData)
                 }
             } catch (e: IOException) {
-                // handle exception
-
+                e.printStackTrace()
             }
 
             val responseCode = connection.responseCode
-            // handle response code
-            println("response code $responseCode")
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw RuntimeException("Failed : HTTP error code : $responseCode")
+            }
         }
 
         fun addForum(forumName: String, forumDescription: String) {
