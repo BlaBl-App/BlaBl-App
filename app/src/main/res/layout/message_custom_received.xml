@@ -15,9 +15,11 @@
             android:id="@+id/cardViewMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:longClickable="true"
             app:cardBackgroundColor="#5CBCF9"
-            app:cardCornerRadius="10dp"
-            android:layout_alignParentStart="true">
+            app:cardCornerRadius="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,11 +40,11 @@
                 <TextView
                     android:id="@+id/userMessageReceiving"
                     android:layout_width="wrap_content"
-                    android:minWidth="170dp"
-                    android:maxWidth="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
+                    android:maxWidth="260dp"
+                    android:minWidth="170dp"
                     android:text="android:padding=&quot;50dp&quot;bfqufjbq bsfbeufbejfbzeujfbzebfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze"
                     android:textAlignment="textStart"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +54,9 @@
                     android:id="@+id/userMessageTimeReceiving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/userMessageReceiving"
+                    android:text="02 feb 2020, 14:15"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="02 feb 2020, 14:15" />
+                    app:layout_constraintTop_toBottomOf="@+id/userMessageReceiving" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

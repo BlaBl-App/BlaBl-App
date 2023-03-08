@@ -1,10 +1,15 @@
 package com.blablapp.blablapp
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,9 +23,13 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == viewTypeSent) {
             val view = View.inflate(context, R.layout.message_custom_sent, null)
+            var textView: TextView = view.findViewById(R.id.userMessageSending)
+            textView.movementMethod = LinkMovementMethod.getInstance()
             SentMessageViewHolder(view)
         } else {
             val view = View.inflate(context, R.layout.message_custom_received, null)
+            var textView: TextView = view.findViewById(R.id.userMessageReceiving)
+            textView.movementMethod = LinkMovementMethod.getInstance()
             ReceivedMessageViewHolder(view)
         }
     }
@@ -36,14 +45,31 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         if (holder.javaClass == SentMessageViewHolder::class.java) {
             val sentMessageViewHolder = holder as SentMessageViewHolder
             sentMessageViewHolder.userNameSending.text = message.nickname
+
             sentMessageViewHolder.userMessageSending.text = message.messageContent
             sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime)
+            sentMessageViewHolder.userMessageSending.setOnLongClickListener {
+                //copy in clipboard
+                val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("message", message.messageContent)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(context, "Message copied", Toast.LENGTH_SHORT).show()
+                true
+            }
 
         } else {
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
             receivedMessageViewHolder.userMessageReceiving.text = message.messageContent
             receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
+            receivedMessageViewHolder.userMessageReceiving.setOnLongClickListener {
+                //copy in clipboard
+                val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("message", message.messageContent)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(context, "Message copied", Toast.LENGTH_SHORT).show()
+                true
+            }
         }
     }
 
