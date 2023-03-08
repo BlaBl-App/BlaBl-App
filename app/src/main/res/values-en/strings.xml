@@ -17,7 +17,7 @@
     <string name="selectingForum">Select a forum</string>
     <string name="enterIp">IP address of your server</string>
     <string name="enterPort">Port of your server</string>
-    <string name="port">Port (8080 by default)</string>
+    <string name="port">Port (5555 by default)</string>
     <string name="protocol">Protocol</string>
     <string name="changeServer">Server configuration</string>
     <string name="noConnection">Please connect to the internet or change your server configuration</string>

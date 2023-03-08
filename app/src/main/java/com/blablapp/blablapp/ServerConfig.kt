@@ -14,17 +14,21 @@ class ServerConfig : AppCompatActivity() {
         editTextPort.setText(getServerPort())
         spinnerProtolcol.setSelection(getServerProtocol())
         buttonServer.setOnClickListener{
-            if (editTextServer.text.toString() == "") {
+            if (editTextServer.text.toString() == ""){
                 Toast.makeText(this, R.string.correctIp, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val serverIp = editTextServer.text.toString()
-            val serverPort = editTextPort.text.toString()
+            val serverPort: String = if (editTextPort.text.toString() == ""){
+                "5555"
+            } else{
+                editTextPort.text.toString()
+            }
             // 0 = http, 1 = https
             val serverProtocol: String = if (spinnerProtolcol.selectedItemPosition == 0){
-                "http://"
-            } else{
                 "https://"
+            } else{
+                "http://"
             }
             DAO.setServIp(serverIp, serverPort, serverProtocol)
             saveDataUser(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
@@ -33,7 +37,7 @@ class ServerConfig : AppCompatActivity() {
         }
     }
 
-    private fun saveDataUser(serverIp: String, serverPort: String = "8080", serverProtocol: Int) {
+    private fun saveDataUser(serverIp: String, serverPort: String = "5555", serverProtocol: Int) {
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val editor = sharedP.edit()
         editor.putString("serverIp", serverIp)
