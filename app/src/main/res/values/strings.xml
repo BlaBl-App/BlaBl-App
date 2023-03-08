@@ -49,4 +49,8 @@ Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </stri
     <string name="nabilesall">nabilesall</string>
     <string name="pp_nabile">photo de profil nabile sall</string>
     <string name="todo">todo</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

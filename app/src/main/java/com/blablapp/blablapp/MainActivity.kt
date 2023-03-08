@@ -43,7 +43,14 @@ class MainActivity : AppCompatActivity() {
         buttonTalk.setOnClickListener {
             if (ProfilPseudo.text.toString() != "") {
                 this.user.pseudo = ProfilPseudo.text.toString()
-                val intent = Intent(this, ServerConfig::class.java)
+                val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
+                val intent: Intent
+                if (sharedP.getString("serverIp", "") == "") {
+                    intent = Intent(this, ServerConfig::class.java)
+                } else {
+                    DAO.setServIp(sharedP.getString("serverIp", "")!!, sharedP.getString("serverPort", "")!!, sharedP.getInt("serverProtocol", 0))
+                    intent = Intent(this, ForumActivity::class.java)
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
