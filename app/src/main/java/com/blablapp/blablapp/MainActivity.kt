@@ -53,6 +53,12 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+        iconInfo.setOnClickListener{
+            val intent = Intent(applicationContext, AboutUsActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
         loadDataUser()
 
         profilePic.setOnClickListener{

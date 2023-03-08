@@ -89,6 +89,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@mipmap/icbigsize" />
 
+        <ImageView
+            android:id="@+id/iconInfo"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_info_24"
+
+
+            app:layout_constraintEnd_toEndOf="@+id/iconeBigSize"
+            tools:layout_editor_absoluteY="10dp" />
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
