@@ -23,7 +23,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var user : User = User("","")
+    private var user : User = User("","","")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
@@ -62,7 +62,9 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             val imageUri = data?.data
-            this.user.linkImage = uploadImageFromGallery(imageUri!!)
+            val tmpImage : Array<String> = uploadImageFromGallery(imageUri!!)
+            this.user.linkImage = tmpImage.get(0)
+            this.user.linkImageSmall = tmpImage.get(1)
             profilePic.setImageURI(imageUri)
         }
     }
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImageFromGallery(uri: Uri): String {
+    private fun uploadImageFromGallery(uri: Uri): Array<String> {
         val dataPath = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = contentResolver.query(uri, dataPath, null, null, null)
         cursor!!.moveToFirst()
@@ -97,7 +99,12 @@ class MainActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(picturePath)
         val file = createFileBM()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, file.outputStream())
-        return FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString()
+        val bitmapSmall = BitmapFactory.decodeFile(picturePath)
+        val fileSmall = createFileBM()
+        bitmapSmall.compress(Bitmap.CompressFormat.JPEG, 10, fileSmall.outputStream())
+        return arrayOf( FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString(),
+            FileProvider.getUriForFile(this, "com.blablapp.blablapp", fileSmall).toString()
+        )
 
     }
 
@@ -118,16 +125,18 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedP.edit()
         editor.putString("pseudo", this.user.pseudo)
         editor.putString("linkImage", this.user.linkImage)
+        editor.putString("linkImageSmall", this.user.linkImageSmall)
         editor.apply()
     }
 
     private fun loadDataUser() {
-        this.user = User("","")
+        this.user = User("","","")
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val pseudo = sharedP.getString("pseudo", "")
         val linkImage = sharedP.getString("linkImage", "")
+        val linkImageSmall: String = sharedP.getString("linkImageSmall", "").toString()
         if (pseudo != null && linkImage != null) {
-            this.user = User(pseudo, linkImage)
+            this.user = User(pseudo, linkImage, linkImageSmall)
             if (this.user.linkImage.isNotEmpty()){
                 profilePic.setImageURI(this.user.linkImage.toUri())
             }else{
