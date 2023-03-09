@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         val outputStream = ByteArrayOutputStream()
         resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 20, outputStream)
         val compressedImageBytes: ByteArray = outputStream.toByteArray()
-        val imageSmall: String = Base64.encodeToString(compressedImageBytes, Base64.DEFAULT)
+        val imageSmall: String = Base64.encodeToString(compressedImageBytes, Base64.NO_WRAP or Base64.URL_SAFE)
 
         Log.e("Image compressor","'$imageSmall'")
 

@@ -63,12 +63,13 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
 
             if (message.profileImage != ""){
                 try {
-                    val decodedBytes = Base64.decode(message.profileImage, Base64.DEFAULT)
+                    val decodedBytes = Base64.decode(message.profileImage, Base64.NO_WRAP or Base64.URL_SAFE)
+                    Log.d("IMAGE BYTE SIZE","decodedBytes.size= ${decodedBytes.size}")
                     val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
                     receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
                 }catch (e: IllegalArgumentException){
                     Log.e("ERROR LOADING IMAGE","$e")
-                    Log.e("FAILED IMAGE","'${message.profileImage}'")
+                    Log.e("FAILED IMAGE","'\n${message.profileImage}\n'")
                 }
 
             }
