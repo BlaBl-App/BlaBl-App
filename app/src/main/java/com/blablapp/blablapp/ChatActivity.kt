@@ -57,11 +57,12 @@ class ChatActivity : AppCompatActivity() {
         userName = intent?.extras?.getString("user").toString()
         linkImage = intent?.extras?.getString("linkImage").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
+        Log.e("IMgae test","'$linkImage'")
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!){
                 val message = userTexForMsg.text.toString()
-                sendMessage(message, idForum)
+                sendMessage(message,linkImage, idForum)
                 userTexForMsg.text!!.clear()
             }
         }
@@ -129,11 +130,11 @@ class ChatActivity : AppCompatActivity() {
         apiThread.start()
     }
 
-    private fun sendMessage(message : String, forum: Int){
+    private fun sendMessage(message : String,image: String, forum: Int){
         val apiThread = Thread {
             try {
                 val nickname =intent?.extras?.getString("user").toString()
-                DAO.postMessages( nickname,"",message, forum)
+                DAO.postMessages( nickname,image,message, forum)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
