@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity() {
         messageRecyclerView.adapter = messageAdapter
 
         userName = intent?.extras?.getString("user").toString()
-        linkImage = intent?.extras?.getString("linkImage").toString()
+        linkImage = intent?.extras?.getString("linkImageSmall").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
         Log.e("IMgae test","'$linkImage'")
 

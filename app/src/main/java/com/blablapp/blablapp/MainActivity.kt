@@ -1,6 +1,7 @@
 package com.blablapp.blablapp
 
 import android.app.Activity
+import android.util.Base64
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.setup_profil_activity.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -99,11 +102,17 @@ class MainActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(picturePath)
         val file = createFileBM()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, file.outputStream())
-        val bitmapSmall = BitmapFactory.decodeFile(picturePath)
-        val fileSmall = createFileBM()
-        bitmapSmall.compress(Bitmap.CompressFormat.JPEG, 10, fileSmall.outputStream())
+
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 128, 128, false)
+        val outputStream = ByteArrayOutputStream()
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 1, outputStream)
+        val compressedImageBytes: ByteArray = outputStream.toByteArray()
+        val imageSmall: String = Base64.encodeToString(compressedImageBytes, Base64.DEFAULT)
+
+        Log.e("Image compressor","'$imageSmall'")
+
         return arrayOf( FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString(),
-            FileProvider.getUriForFile(this, "com.blablapp.blablapp", fileSmall).toString()
+            imageSmall
         )
 
     }
