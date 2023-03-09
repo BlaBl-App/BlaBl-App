@@ -2,6 +2,13 @@ package com.blablapp.blablapp
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.content.Intent
+import android.net.Uri
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.util.Patterns
 import android.view.View
 import android.util.Base64
 import android.util.Log
@@ -9,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,14 +47,18 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
 
         if (holder.javaClass == SentMessageViewHolder::class.java) {
             val sentMessageViewHolder = holder as SentMessageViewHolder
+
             sentMessageViewHolder.userNameSending.text = message.nickname
-            sentMessageViewHolder.userMessageSending.text = message.messageContent
+            sentMessageViewHolder.userMessageSending.text = textWithPossibleLinks(message.messageContent)
+            sentMessageViewHolder.userMessageSending.movementMethod = LinkMovementMethod.getInstance()
             sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime)
 
         } else {
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
+
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
-            receivedMessageViewHolder.userMessageReceiving.text = message.messageContent
+            receivedMessageViewHolder.userMessageReceiving.text = textWithPossibleLinks(message.messageContent)
+            receivedMessageViewHolder.userMessageReceiving.movementMethod = LinkMovementMethod.getInstance()
             receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
             Log.e("RECEIVED IMAGE","'${message.profileImage}'")
             val decodedBytes = Base64.decode(message.profileImage, Base64.DEFAULT)
@@ -84,6 +96,32 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         val date = Date(timestamp)
         val format = SimpleDateFormat("dd LLL yyyy, HH:mm" , Locale.FRANCE)
         return format.format(date)
+    }
+
+    private fun textWithPossibleLinks(message: String): SpannableString {
+        val builder = SpannableString(message)
+        val matcher = Patterns.WEB_URL.matcher(builder)
+        while (matcher.find()) {
+            val url = builder.subSequence(matcher.start(), matcher.end()).toString()
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(addHttp(url)))
+                    startActivity(context,intent,null)
+                }
+            }
+            builder.setSpan(clickableSpan, matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        return builder
+
+    }
+
+    private fun addHttp(url: String): String {
+        return if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            "http://$url"
+        } else {
+            url
+        }
     }
 
 }
