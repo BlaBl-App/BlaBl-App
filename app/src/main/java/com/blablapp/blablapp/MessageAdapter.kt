@@ -60,10 +60,19 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
             receivedMessageViewHolder.userMessageReceiving.text = textWithPossibleLinks(message.messageContent)
             receivedMessageViewHolder.userMessageReceiving.movementMethod = LinkMovementMethod.getInstance()
             receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
-            Log.e("RECEIVED IMAGE","'${message.profileImage}'")
-            val decodedBytes = Base64.decode(message.profileImage, Base64.DEFAULT)
-            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-            receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+
+            if (message.profileImage != ""){
+                try {
+                    val decodedBytes = Base64.decode(message.profileImage, Base64.DEFAULT)
+                    val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                    receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+                }catch (e: IllegalArgumentException){
+                    Log.e("ERROR LOADING IMAGE","$e")
+                    Log.e("FAILED IMAGE","'${message.profileImage}'")
+                }
+
+            }
+
 
         }
     }
