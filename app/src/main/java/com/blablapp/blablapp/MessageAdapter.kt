@@ -1,8 +1,12 @@
 package com.blablapp.blablapp
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.View
+import android.util.Base64
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +48,11 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
             receivedMessageViewHolder.userMessageReceiving.text = message.messageContent
             receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
+            Log.e("RECEIVED IMAGE","'${message.profileImage}'")
+            val decodedBytes = Base64.decode(message.profileImage, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+
         }
     }
 
@@ -68,6 +77,7 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         val userNameReceiving: TextView = itemView.findViewById(R.id.userNameReceiving)
         val userMessageReceiving: TextView = itemView.findViewById(R.id.userMessageReceiving)
         val userDateReceiving: TextView = itemView.findViewById(R.id.userMessageTimeReceiving)
+        val userPicReceiving: ImageView = itemView.findViewById(R.id.userPic)
     }
 
     private fun getDateFromTimestamp(timestamp: Long): String {
