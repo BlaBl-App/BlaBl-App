@@ -74,13 +74,14 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
                     Log.e("ERROR LOADING IMAGE","$e")
                     Log.e("FAILED IMAGE","'\n${message.profileImage}\n'")
                 }
-
             }
-
-
         }
     }
 
+
+    /**
+     * Check if the message is sent or received
+     */
     override fun getItemViewType(position: Int): Int {
         val pseudo = context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE).getString("pseudo", "")
         val message = listOfMessage[position]
@@ -92,12 +93,20 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         }
     }
 
+
+    /**
+     * ViewHolder for sent messages
+     */
     class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userNameSending: TextView = itemView.findViewById(R.id.userNameSending)
         val userMessageSending: TextView = itemView.findViewById(R.id.userMessageSending)
         val userDateSending: TextView = itemView.findViewById(R.id.userMessageTimeSending)
     }
 
+
+    /**
+     * ViewHolder for received messages
+     */
     class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userNameReceiving: TextView = itemView.findViewById(R.id.userNameReceiving)
         val userMessageReceiving: TextView = itemView.findViewById(R.id.userMessageReceiving)
@@ -105,12 +114,20 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         val userPicReceiving: ImageView = itemView.findViewById(R.id.userPic)
     }
 
+
+    /**
+     * Convert timestamp to date
+     */
     private fun getDateFromTimestamp(timestamp: Long): String {
         val date = Date(timestamp)
         val format = SimpleDateFormat("dd LLL yyyy, HH:mm" , Locale.FRANCE)
         return format.format(date)
     }
 
+
+    /**
+     * Convert text to clickable link if it's a link
+     */
     private fun textWithPossibleLinks(message: String): SpannableString {
         val builder = SpannableString(message)
         val matcher = Patterns.WEB_URL.matcher(builder)
@@ -129,6 +146,10 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
 
     }
 
+
+    /**
+     * Add http:// if it's not already in the link
+     */
     private fun addHttp(url: String): String {
         return if (!url.startsWith("http://") && !url.startsWith("https://")) {
             "http://$url"
