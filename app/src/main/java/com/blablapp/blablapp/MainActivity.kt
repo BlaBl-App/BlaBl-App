@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -163,7 +162,7 @@ class MainActivity : AppCompatActivity() {
         val compressedImageBytes: ByteArray = outputStream.toByteArray()
         val imageSmall: String = Base64.encodeToString(compressedImageBytes, Base64.NO_WRAP or Base64.URL_SAFE)
 
-        Log.e("Image compressor","'$imageSmall'")
+
 
         return arrayOf( FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString(),
             imageSmall

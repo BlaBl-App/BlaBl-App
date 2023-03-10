@@ -57,7 +57,7 @@ class ChatActivity : AppCompatActivity() {
         userName = intent?.extras?.getString("user").toString()
         linkImage = intent?.extras?.getString("linkImageSmall").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
-        Log.e("IMgae test","'$linkImage'")
+
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!){
