@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         loadDataUser()
 
+        pseudoEditable()
+
         profilePic.setOnClickListener{
             val readImagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.READ_MEDIA_IMAGES else android.Manifest.permission.READ_EXTERNAL_STORAGE
             if(ContextCompat.checkSelfPermission(this, readImagePermission) == PackageManager.PERMISSION_GRANTED){
@@ -45,6 +47,14 @@ class MainActivity : AppCompatActivity() {
                 this.user.pseudo = ProfilPseudo.text.toString()
                 val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
                 val intent: Intent
+                val dateExpiration = sharedP.getString("date-expiration",null)
+
+                if(dateExpiration == null){
+                    val dateExp = Calendar.getInstance()
+                    dateExp.add(Calendar.MINUTE, 1)
+                    sharedP.edit().putString("date-expiration", dateExp.timeInMillis.toString()).apply()
+                }
+
                 if (sharedP.getString("serverIp", "") == "") {
                     intent = Intent(this, ServerConfig::class.java)
                 } else {
@@ -54,6 +64,24 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.messErrorPseudo), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun pseudoEditable() {
+        val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
+
+        val currentDate = Calendar.getInstance().timeInMillis
+        val dateExpiration = sharedP.getString("date-expiration",null)
+
+        if(dateExpiration != null) {
+            val date = Date(dateExpiration.toLong()).time
+            if (currentDate > date) {
+                ProfilPseudo.isEnabled = true
+                sharedP.edit().remove("date-expiration").apply()
+            } else {
+                ProfilPseudo.isEnabled = false
+                ProfilPseudo.setText(this.user.pseudo)
             }
         }
     }
@@ -140,6 +168,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         saveDataUser()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pseudoEditable()
     }
 
 }
