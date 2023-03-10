@@ -1,6 +1,7 @@
 package com.blablapp.blablapp
 
 import android.app.Activity
+import android.util.Base64
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -17,13 +19,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.setup_profil_activity.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var user : User = User("","")
+    private var user : User = User("","","")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
@@ -90,7 +93,9 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             val imageUri = data?.data
-            this.user.linkImage = uploadImageFromGallery(imageUri!!)
+            val tmpImage : Array<String> = uploadImageFromGallery(imageUri!!)
+            this.user.linkImage = tmpImage.get(0)
+            this.user.linkImageSmall = tmpImage.get(1)
             profilePic.setImageURI(imageUri)
         }
     }
@@ -115,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImageFromGallery(uri: Uri): String {
+    private fun uploadImageFromGallery(uri: Uri): Array<String> {
         val dataPath = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = contentResolver.query(uri, dataPath, null, null, null)
         cursor!!.moveToFirst()
@@ -125,7 +130,18 @@ class MainActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(picturePath)
         val file = createFileBM()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, file.outputStream())
-        return FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString()
+
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 128, 128, false)
+        val outputStream = ByteArrayOutputStream()
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 20, outputStream)
+        val compressedImageBytes: ByteArray = outputStream.toByteArray()
+        val imageSmall: String = Base64.encodeToString(compressedImageBytes, Base64.NO_WRAP or Base64.URL_SAFE)
+
+        Log.e("Image compressor","'$imageSmall'")
+
+        return arrayOf( FileProvider.getUriForFile(this, "com.blablapp.blablapp", file).toString(),
+            imageSmall
+        )
 
     }
 
@@ -146,16 +162,18 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedP.edit()
         editor.putString("pseudo", this.user.pseudo)
         editor.putString("linkImage", this.user.linkImage)
+        editor.putString("linkImageSmall", this.user.linkImageSmall)
         editor.apply()
     }
 
     private fun loadDataUser() {
-        this.user = User("","")
+        this.user = User("","","")
         val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
         val pseudo = sharedP.getString("pseudo", "")
         val linkImage = sharedP.getString("linkImage", "")
+        val linkImageSmall: String = sharedP.getString("linkImageSmall", "").toString()
         if (pseudo != null && linkImage != null) {
-            this.user = User(pseudo, linkImage)
+            this.user = User(pseudo, linkImage, linkImageSmall)
             if (this.user.linkImage.isNotEmpty()){
                 profilePic.setImageURI(this.user.linkImage.toUri())
             }else{

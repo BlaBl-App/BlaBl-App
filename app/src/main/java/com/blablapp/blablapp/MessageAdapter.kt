@@ -1,6 +1,7 @@
 package com.blablapp.blablapp
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.content.Intent
 import android.net.Uri
 import android.text.SpannableString
@@ -9,7 +10,10 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Patterns
 import android.view.View
+import android.util.Base64
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
@@ -56,6 +60,24 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
             receivedMessageViewHolder.userMessageReceiving.text = textWithPossibleLinks(message.messageContent)
             receivedMessageViewHolder.userMessageReceiving.movementMethod = LinkMovementMethod.getInstance()
             receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
+
+            if (message.profileImage != ""){
+                try {
+                    val decodedBytes = Base64.decode(message.profileImage, Base64.NO_WRAP or Base64.URL_SAFE)
+                    Log.d("IMAGE BYTE SIZE","decodedBytes.size= ${decodedBytes.size}")
+                    val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                    //if (bitmap != null && bitmap.width > 0 && bitmap.height > 0) {
+                    if (bitmap != null) {
+                        receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+                    }
+                }catch (e: IllegalArgumentException){
+                    Log.e("ERROR LOADING IMAGE","$e")
+                    Log.e("FAILED IMAGE","'\n${message.profileImage}\n'")
+                }
+
+            }
+
+
         }
     }
 
@@ -80,6 +102,7 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
         val userNameReceiving: TextView = itemView.findViewById(R.id.userNameReceiving)
         val userMessageReceiving: TextView = itemView.findViewById(R.id.userMessageReceiving)
         val userDateReceiving: TextView = itemView.findViewById(R.id.userMessageTimeReceiving)
+        val userPicReceiving: ImageView = itemView.findViewById(R.id.userPic)
     }
 
     private fun getDateFromTimestamp(timestamp: Long): String {

@@ -68,9 +68,14 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
             AppCompatActivity.MODE_PRIVATE
         )
         val pseudo = sharedP.getString("pseudo", "")
+        val linkImage = sharedP.getString("linkImage", "")
+        val linkImageSmall = sharedP.getString("linkImageSmall", "")
         val intent = Intent(context, ChatActivity::class.java)
+
         intent.putExtra("idForum", forumId)
         intent.putExtra("user", pseudo)
+        intent.putExtra("linkImage", linkImage)
+        intent.putExtra("linkImageSmall", linkImageSmall)
         ContextCompat.startActivity(context, intent, null)
     }
 
