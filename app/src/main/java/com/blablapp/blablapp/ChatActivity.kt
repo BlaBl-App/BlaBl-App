@@ -89,6 +89,10 @@ class ChatActivity : AppCompatActivity() {
         lastMessageId = newLastMessageId
     }
 
+
+    /**
+     * Get the messages from the server
+     */
     private fun launchMessageProcess(){
 
         val apiThread = Thread {
@@ -130,6 +134,10 @@ class ChatActivity : AppCompatActivity() {
         apiThread.start()
     }
 
+
+    /**
+     * Send a message to the server
+     */
     private fun sendMessage(message : String,image: String, forum: Int){
         val apiThread = Thread {
             try {
