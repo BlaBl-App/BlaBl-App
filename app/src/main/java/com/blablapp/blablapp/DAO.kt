@@ -50,7 +50,7 @@ class DAO {
         fun postMessages(nickname:String, profilePick:String, messsageContent: String, forum: Int)
         {
             val url = URL("$servIp/message")
-            val postData="pick=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
+            val postData="pic=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.doOutput = true

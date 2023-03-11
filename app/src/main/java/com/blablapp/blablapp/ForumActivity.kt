@@ -99,6 +99,4 @@ class ForumActivity : AppCompatActivity() {
         }
         apiThread.start()
     }
-
-
 }
