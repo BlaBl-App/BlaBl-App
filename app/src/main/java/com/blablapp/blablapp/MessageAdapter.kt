@@ -1,5 +1,7 @@
 package com.blablapp.blablapp
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.content.Intent
@@ -15,6 +17,7 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -52,28 +55,50 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
             sentMessageViewHolder.userMessageSending.text = textWithPossibleLinks(message.messageContent)
             sentMessageViewHolder.userMessageSending.movementMethod = LinkMovementMethod.getInstance()
             sentMessageViewHolder.userDateSending.text = getDateFromTimestamp(message.postTime)
+            sentMessageViewHolder.userMessageSending.setOnLongClickListener {
+                //copy in clipboard
+                val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("message", message.messageContent)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(context, "Message copied", Toast.LENGTH_SHORT).show()
+                true
+            }
 
         } else {
             val receivedMessageViewHolder = holder as ReceivedMessageViewHolder
 
             receivedMessageViewHolder.userNameReceiving.text = message.nickname
-            receivedMessageViewHolder.userMessageReceiving.text = textWithPossibleLinks(message.messageContent)
-            receivedMessageViewHolder.userMessageReceiving.movementMethod = LinkMovementMethod.getInstance()
-            receivedMessageViewHolder.userDateReceiving.text = getDateFromTimestamp(message.postTime)
+            receivedMessageViewHolder.userMessageReceiving.text =
+                textWithPossibleLinks(message.messageContent)
+            receivedMessageViewHolder.userMessageReceiving.movementMethod =
+                LinkMovementMethod.getInstance()
+            receivedMessageViewHolder.userDateReceiving.text =
+                getDateFromTimestamp(message.postTime)
+            receivedMessageViewHolder.userMessageReceiving.setOnLongClickListener {
+                //copy in clipboard
+                val clipboardManager =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("message", message.messageContent)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(context, "Message copied", Toast.LENGTH_SHORT).show()
+                true
+            }
 
-            if (message.profileImage != ""){
-                try {
-                    val decodedBytes = Base64.decode(message.profileImage, Base64.NO_WRAP or Base64.URL_SAFE)
-                    val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-                    if (bitmap != null) {
-                        Log.d("ERROR IN BITMAP","setting image to default")
-                        receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+                if (message.profileImage != "") {
+                    try {
+                        val decodedBytes =
+                            Base64.decode(message.profileImage, Base64.NO_WRAP or Base64.URL_SAFE)
+                        val bitmap =
+                            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                        if (bitmap != null) {
+                            Log.d("ERROR IN BITMAP", "setting image to default")
+                            receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
+                        }
+                    } catch (e: IllegalArgumentException) {
+                        Log.d("ERROR LOADING IMAGE", "$e")
                     }
-                }catch (e: IllegalArgumentException){
-                    Log.d("ERROR LOADING IMAGE","$e")
                 }
             }
-        }
     }
 
 
