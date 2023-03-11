@@ -44,4 +44,11 @@ This application was developed as part of our studies in BUT Computer Science.
 
 We are not responsible for the words spoken by the users.
     </string>
+    <string name="pp_nabile">nabile sall profil pic</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="send_msg">send message</string>
+    <string name="profilePic">Profile pic</string>
+    <string name="Blabla_App_logo">BlaBla\'App logo</string>
 </resources>

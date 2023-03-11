@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
-                    android:text="username name"
+                    android:text="@string/placeHolder"
                     android:textColor="#B2F37C"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
-                    android:text="android:padding=&quot;50dp&quot;bfqufjbq bsfbeufbejfbzeujfbzebfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze"
+                    android:text="@string/placeHolder"
                     android:textAlignment="textStart"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/userNameSending" />
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/userMessageSending"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="02 feb 2020, 14:15" />
+                    android:text="@string/placeHolder" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

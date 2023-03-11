@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
-                    android:text="username name"
+                    android:text="@string/placeHolder"
                     android:textColor="#B2F37C"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
                     android:fontFamily="monospace"
                     android:maxWidth="260dp"
                     android:minWidth="170dp"
-                    android:text="android:padding=&quot;50dp&quot;bfqufjbq bsfbeufbejfbzeujfbzebfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze"
+                    android:text="@string/placeHolder"
                     android:textAlignment="textStart"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/userNameReceiving" />
@@ -57,7 +57,7 @@
                     android:id="@+id/userMessageTimeReceiving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="02 feb 2020, 14:15"
+                    android:text="@string/placeHolder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/userMessageReceiving" />
 
@@ -78,10 +78,10 @@
             android:id="@+id/userPic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="Profile Image"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/defaultpp"
-            tools:srcCompat="@drawable/defaultpp" />
+            tools:srcCompat="@drawable/defaultpp"
+            android:contentDescription="@string/profilePic"/>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,10 +100,11 @@ class ChatActivity : AppCompatActivity() {
                 while (getLiveUpdate()){
                     val servLastMessageId: Int = DAO.getLastMessageId(idForum)
                     if (getLastMessageId() != servLastMessageId ){
-                        Log.d("DEBUG GET MESSAGES","old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
+                        Log.d("DEBUG GET MESSAGES","old message id ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
                         val  messages : Array<Message> = DAO.getMessages(nb=nbMessageToShow, forum=idForum)
                         messages.reverse()
-                        setLastMessageId(getMaxMessageId(messages))
+
+                        (getMaxMessageId(messages))
                         runOnUiThread {
                             listOfMessage.clear()
                         }

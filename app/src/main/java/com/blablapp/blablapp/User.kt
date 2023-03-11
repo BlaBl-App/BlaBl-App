@@ -4,4 +4,4 @@ class User(
     var pseudo : String,
     var linkImage : String,
     var linkImageSmall: String
-    ) : java.io.Serializable { }
+    ) : java.io.Serializable

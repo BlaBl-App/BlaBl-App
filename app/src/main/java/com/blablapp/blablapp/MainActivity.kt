@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             if (ProfilPseudo.text.toString() != "") {
                 this.user.pseudo = ProfilPseudo.text.toString()
                 val sharedP = applicationContext.getSharedPreferences("user", MODE_PRIVATE)
-                val intent: Intent
                 val dateExpiration = sharedP.getString("date-expiration",null)
 
                 //save the expiration time of the pseudo
@@ -57,11 +56,11 @@ class MainActivity : AppCompatActivity() {
                     sharedP.edit().putString("date-expiration", dateExp.timeInMillis.toString()).apply()
                 }
 
-                if (sharedP.getString("serverIp", "") == "") {
-                    intent = Intent(this, ServerConfig::class.java)
+                val intent: Intent = if (sharedP.getString("serverIp", "") == "") {
+                    Intent(this, ServerConfig::class.java)
                 } else {
                     DAO.setServIp(sharedP.getString("serverIp", "")!!, sharedP.getString("serverPort", "")!!, sharedP.getInt("serverProtocol", 0))
-                    intent = Intent(this, ForumActivity::class.java)
+                    Intent(this, ForumActivity::class.java)
                 }
                 startActivity(intent)
             } else {

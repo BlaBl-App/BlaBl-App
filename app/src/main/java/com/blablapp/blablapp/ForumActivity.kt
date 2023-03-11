@@ -88,7 +88,7 @@ class ForumActivity : AppCompatActivity() {
                         }
                         if (!alreadyInList){
                             forumList.add(forum)
-                            forumAdapter.notifyDataSetChanged()
+                            forumAdapter.notifyItemInserted(forumList.indexOf(forum))
                         }
                     }
                 }
