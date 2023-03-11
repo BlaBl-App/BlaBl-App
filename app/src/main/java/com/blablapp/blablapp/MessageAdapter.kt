@@ -34,13 +34,9 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == viewTypeSent) {
             val view = View.inflate(context, R.layout.message_custom_sent, null)
-            var textView: TextView = view.findViewById(R.id.userMessageSending)
-            textView.movementMethod = LinkMovementMethod.getInstance()
             SentMessageViewHolder(view)
         } else {
             val view = View.inflate(context, R.layout.message_custom_received, null)
-            var textView: TextView = view.findViewById(R.id.userMessageReceiving)
-            textView.movementMethod = LinkMovementMethod.getInstance()
             ReceivedMessageViewHolder(view)
         }
     }
