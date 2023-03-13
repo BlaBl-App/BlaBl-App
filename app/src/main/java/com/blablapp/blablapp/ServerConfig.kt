@@ -23,11 +23,13 @@ class ServerConfig : AppCompatActivity() {
         spinnerProtolcol.setSelection(getServerProtocol())
         Log.d("DEBUG LAUNCH SERVER CONFIG", "HERE")
         buttonServer.setOnClickListener{
-            if (editTextServer.text.toString() == ""){
-                Toast.makeText(this, R.string.correctIp, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            
+            val serverIp: String = if (editTextServer.text.toString() == ""){
+                "Tchoutchou.ovh"
+            } else{
+                editTextServer.text.toString()
             }
-            val serverIp = editTextServer.text.toString()
+
             val serverPort: String = if (editTextPort.text.toString() == ""){
                 "5555"
             } else{
