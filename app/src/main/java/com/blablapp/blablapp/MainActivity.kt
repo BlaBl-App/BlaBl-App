@@ -30,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setup_profil_activity)
 
+
+        iconInfo.setOnClickListener{
+            val intent = Intent(applicationContext, AboutUsActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
         loadDataUser()
         pseudoEditable()
 

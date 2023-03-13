@@ -22,6 +22,10 @@ class AboutUsActivity : AppCompatActivity() {
         imageViewQypol342.setOnClickListener{
             navigationToGitHub("qypol342")
         }
+
+        iconBackBig.setOnClickListener {
+            finish()
+        }
     }
 
 

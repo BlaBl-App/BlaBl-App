@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.content.SharedPreferences
 import android.widget.Toast
+import kotlinx.android.synthetic.main.aboutus_activity.*
 import kotlinx.android.synthetic.main.activity_ip_address.*
+import kotlinx.android.synthetic.main.activity_ip_address.iconBackBig
 
 class ServerConfig : AppCompatActivity() {
 
@@ -37,6 +39,10 @@ class ServerConfig : AppCompatActivity() {
             val intent = Intent(this, ForumActivity::class.java)
             startActivity(intent)
         }
+        iconBackBig.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun saveDataUser(serverIp: String, serverPort: String = "5555", serverProtocol: Int) {
