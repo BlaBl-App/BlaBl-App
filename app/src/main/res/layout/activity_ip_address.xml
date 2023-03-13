@@ -20,8 +20,9 @@
             android:id="@+id/iconeBigSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription=""
-            app:srcCompat="@mipmap/icbigsize" />
+            android:contentDescription="@string/Blabla_App_logo"
+            app:srcCompat="@mipmap/icbigsize"
+            />
 
     </androidx.cardview.widget.CardView>
 

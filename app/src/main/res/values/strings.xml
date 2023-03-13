@@ -1,5 +1,6 @@
 <resources>
 
+    <string name="placeHolder" translatable="false">XXXXXX</string>
     <string name="app_name" translatable="false">BlaBl\'App</string>
     <string name="pseudo">pseudo</string>
     <string name="btn_name">Parlons</string>
@@ -44,13 +45,15 @@ Les utilisateurs peuvent rejoindre des salons de discussion et discuter avec les
     <string name="legal_notices">
 Cette application a été développée dans le cadre des nos études en BUT Informatique.
 Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </string>
-    <string name="qypol342">qypol342</string>
-    <string name="icepick4">icepick4</string>
-    <string name="nabilesall">nabilesall</string>
+    <string name="qypol342" translatable="false">qypol342</string>
+    <string name="icepick4" translatable="false">icepick4</string>
+    <string name="nabilesall" translatable="false">nabilesall</string>
     <string name="pp_nabile">photo de profil nabile sall</string>
-    <string name="todo">todo</string>
-    <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="todo" translatable="false">todo</string>
+    <string name="title_dashboard">Tableau de bord</string>
+    <string name="send_msg">envoyer message</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_home">Accueil</string>
+    <string name="profilePic">Photo de profile</string>
+    <string name="Blabla_App_logo">BlaBla\'App logo</string>
 </resources>

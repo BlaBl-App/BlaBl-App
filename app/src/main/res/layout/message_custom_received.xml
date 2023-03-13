@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -15,9 +18,11 @@
             android:id="@+id/cardViewMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:longClickable="true"
             app:cardBackgroundColor="#5CBCF9"
-            app:cardCornerRadius="10dp"
-            android:layout_alignParentStart="true">
+            app:cardCornerRadius="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -30,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
-                    android:text="username name"
+                    android:text="@string/placeHolder"
                     android:textColor="#B2F37C"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -38,12 +43,12 @@
                 <TextView
                     android:id="@+id/userMessageReceiving"
                     android:layout_width="wrap_content"
-                    android:minWidth="170dp"
-                    android:maxWidth="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="monospace"
-                    android:text="android:padding=&quot;50dp&quot;bfqufjbq bsfbeufbejfbzeujfbzebfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze bfqufjbq bsfbeufbejfbzeujfbze"
+                    android:maxWidth="260dp"
+                    android:minWidth="170dp"
+                    android:text="@string/placeHolder"
                     android:textAlignment="textStart"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/userNameReceiving" />
@@ -52,11 +57,31 @@
                     android:id="@+id/userMessageTimeReceiving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/userMessageReceiving"
+                    android:text="@string/placeHolder"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="02 feb 2020, 14:15" />
+                    app:layout_constraintTop_toBottomOf="@+id/userMessageReceiving" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userPic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/defaultpp"
+            tools:srcCompat="@drawable/defaultpp"
+            android:contentDescription="@string/profilePic"/>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

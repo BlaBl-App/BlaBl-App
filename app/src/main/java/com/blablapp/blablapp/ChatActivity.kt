@@ -49,19 +49,20 @@ class ChatActivity : AppCompatActivity() {
         launchMessageProcess()
 
         listOfMessage = ArrayList()
-        messageAdapter = MessageAdapter(this, listOfMessage)
+        messageAdapter = MessageAdapter(this,listOfMessage)
 
         messageRecyclerView.layoutManager = LinearLayoutManager(this)
         messageRecyclerView.adapter = messageAdapter
 
         userName = intent?.extras?.getString("user").toString()
-        linkImage = intent?.extras?.getString("linkImage").toString()
+        linkImage = intent?.extras?.getString("linkImageSmall").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
+
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!){
                 val message = userTexForMsg.text.toString()
-                sendMessage(message, idForum)
+                sendMessage(message,linkImage, idForum)
                 userTexForMsg.text!!.clear()
             }
         }
@@ -88,6 +89,10 @@ class ChatActivity : AppCompatActivity() {
         lastMessageId = newLastMessageId
     }
 
+
+    /**
+     * Get the messages from the server
+     */
     private fun launchMessageProcess(){
 
         val apiThread = Thread {
@@ -95,16 +100,17 @@ class ChatActivity : AppCompatActivity() {
                 while (getLiveUpdate()){
                     val servLastMessageId: Int = DAO.getLastMessageId(idForum)
                     if (getLastMessageId() != servLastMessageId ){
-                        Log.d("DEBUG GET MESSAGES","old messageid ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
+                        Log.d("DEBUG GET MESSAGES","old message id ${getLastMessageId()} new messageID $servLastMessageId pull status $noPullDown")
                         val  messages : Array<Message> = DAO.getMessages(nb=nbMessageToShow, forum=idForum)
                         messages.reverse()
-                        setLastMessageId(getMaxMessageId(messages))
+
+                        (getMaxMessageId(messages))
                         runOnUiThread {
                             listOfMessage.clear()
                         }
                         for (message in messages) {
                             runOnUiThread {
-                                val newMessage = Message(idForum, linkImage, message.nickname, message.messageContent, message.forumId, message.postTime)
+                                val newMessage = Message(idForum, message.profileImage, message.nickname, message.messageContent, message.forumId, message.postTime)
                                 listOfMessage.add(newMessage)
                                 messageAdapter.notifyDataSetChanged()
                             }
@@ -129,11 +135,15 @@ class ChatActivity : AppCompatActivity() {
         apiThread.start()
     }
 
-    private fun sendMessage(message : String, forum: Int){
+
+    /**
+     * Send a message to the server
+     */
+    private fun sendMessage(message : String,image: String, forum: Int){
         val apiThread = Thread {
             try {
                 val nickname =intent?.extras?.getString("user").toString()
-                DAO.postMessages( nickname,"",message, forum)
+                DAO.postMessages( nickname,image,message, forum)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

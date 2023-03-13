@@ -1,12 +1,9 @@
 package com.blablapp.blablapp
 
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_ip_address.*
 import org.json.JSONObject
 import java.io.IOException
 import java.io.OutputStreamWriter
-import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
@@ -30,10 +27,10 @@ class DAO {
                 "http://"
             }
             //check if ip contains http or https, if not add it
-            if (!ip.contains("http://") && !ip.contains("https://")) {
-                servIp = concatenateIpAndPort(ip, port, serverProtocol)
+            servIp = if (!ip.contains("http://") && !ip.contains("https://")) {
+                concatenateIpAndPort(ip, port, serverProtocol)
             } else {
-                servIp = concatenateIpAndPort(ip.split('/')[1].substring(3), port, serverProtocol)
+                concatenateIpAndPort(ip.split('/')[1].substring(3), port, serverProtocol)
             }
             Log.d("DEBUG SERV IP ", servIp)
         }
@@ -47,10 +44,10 @@ class DAO {
             return parseMessageJson(apiResponse)
         }
 
-        fun postMessages(nickname:String, profilePick:String, messsageContent: String, forum: Int)
+        fun postMessages(nickname:String, profilePick:String, messageContent: String, forum: Int)
         {
             val url = URL("$servIp/message")
-            val postData="pick=$profilePick&nickname=$nickname&forum=$forum&message=\"$messsageContent\""
+            val postData="pic=$profilePick&nickname=$nickname&forum=$forum&message=\"$messageContent\""
             val conn = url.openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
             conn.doOutput = true

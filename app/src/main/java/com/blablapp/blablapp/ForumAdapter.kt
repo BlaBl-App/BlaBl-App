@@ -39,6 +39,10 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
         }
     }
 
+
+    /**
+     * Remove a forum from the list and the database
+     */
     private fun removeForum(position: Int, forumId: Int){
         val apiThread = Thread{
             try{
@@ -63,17 +67,30 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
         alertDialog.show()
     }
 
+
+    /**
+     * Select a forum and go to the chat activity
+     */
     private fun selectForum(forumId: Int){
         val sharedP = context.getSharedPreferences("user",
             AppCompatActivity.MODE_PRIVATE
         )
         val pseudo = sharedP.getString("pseudo", "")
+        val linkImage = sharedP.getString("linkImage", "")
+        val linkImageSmall = sharedP.getString("linkImageSmall", "")
         val intent = Intent(context, ChatActivity::class.java)
+
         intent.putExtra("idForum", forumId)
         intent.putExtra("user", pseudo)
+        intent.putExtra("linkImage", linkImage)
+        intent.putExtra("linkImageSmall", linkImageSmall)
         ContextCompat.startActivity(context, intent, null)
     }
 
+
+    /**
+     * View holder for the forum
+     */
     class ForumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val forumName: TextView = itemView.findViewById(R.id.forumTitle)
         val forumDescription: TextView = itemView.findViewById(R.id.forumDescription)

@@ -28,10 +28,13 @@ class AboutUsActivity : AppCompatActivity() {
         }
     }
 
+
+    /**
+     * Open the browser with the github page of the author
+     */
     private fun navigationToGitHub(id: String){
         val url = URL("https://github.com/".plus(id))
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()))
         startActivity(intent)
     }
-
 }

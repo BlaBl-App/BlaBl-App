@@ -19,13 +19,11 @@ class ForumActivity : AppCompatActivity() {
 
         getForums()
         forumList = ArrayList()
-        forumAdapter = ForumAdapter(this, forumList)
+        forumAdapter = ForumAdapter(this, this.forumList)
         forumRecyclerView.layoutManager = LinearLayoutManager(this)
         forumRecyclerView.adapter = forumAdapter
 
-        addForumButton.setOnClickListener{
-            addForumDialog()
-        }
+        addForumButton.setOnClickListener { addForumDialog() }
 
         changeServerButton.setOnClickListener{
             val intent = Intent(this, ServerConfig::class.java)
@@ -90,7 +88,7 @@ class ForumActivity : AppCompatActivity() {
                         }
                         if (!alreadyInList){
                             forumList.add(forum)
-                            forumAdapter.notifyDataSetChanged()
+                            forumAdapter.notifyItemInserted(forumList.indexOf(forum))
                         }
                     }
                 }
@@ -101,6 +99,4 @@ class ForumActivity : AppCompatActivity() {
         }
         apiThread.start()
     }
-
-
 }
