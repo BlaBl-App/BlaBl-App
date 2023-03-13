@@ -27,7 +27,13 @@ class ServerConfig : AppCompatActivity() {
                 Toast.makeText(this, R.string.correctIp, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val serverIp = editTextServer.text.toString()
+
+            val serverIp: String = if (editTextServer.text.toString() == ""){
+                "Tchoutchou.ovh"
+            } else{
+                editTextServer.text.toString()
+            }
+
             val serverPort: String = if (editTextPort.text.toString() == ""){
                 "5555"
             } else{

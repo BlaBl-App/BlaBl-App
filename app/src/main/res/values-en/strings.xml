@@ -23,7 +23,7 @@
     <string name="noConnection">Please connect to the internet or change your server configuration</string>
     <string name="noConnectionTitle">Error while loading the forums</string>
     <string name="correctIp">Please enter a correct IP address</string>
-    <string name="ip">IP address</string>
+    <string name="ip">IP address (default Tchoutchou.ovh)</string>
     <string name="select">Select</string>
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
