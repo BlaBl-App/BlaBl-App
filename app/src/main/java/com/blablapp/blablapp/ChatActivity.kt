@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.chat_activity.*
+import kotlinx.android.synthetic.main.chat_activity.iconBackBig
+import kotlinx.android.synthetic.main.forum_activity.*
 
 class ChatActivity : AppCompatActivity() {
 
@@ -65,6 +67,9 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(message,linkImage, idForum)
                 userTexForMsg.text!!.clear()
             }
+        }
+        iconBackBig.setOnClickListener {
+            finish()
         }
     }
     @Synchronized

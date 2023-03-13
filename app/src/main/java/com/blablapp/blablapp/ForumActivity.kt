@@ -7,7 +7,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_ip_address.*
 import kotlinx.android.synthetic.main.forum_activity.*
+import kotlinx.android.synthetic.main.forum_activity.iconBackBig
 
 class ForumActivity : AppCompatActivity() {
 
@@ -28,6 +30,9 @@ class ForumActivity : AppCompatActivity() {
         changeServerButton.setOnClickListener{
             val intent = Intent(this, ServerConfig::class.java)
             startActivity(intent)
+        }
+        iconBackBig.setOnClickListener {
+            finish()
         }
 
     }
