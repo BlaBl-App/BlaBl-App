@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.chat_activity.*
 import kotlinx.android.synthetic.main.chat_activity.iconBackBig
-import kotlinx.android.synthetic.main.forum_activity.*
 
 class ChatActivity : AppCompatActivity() {
 
@@ -60,6 +59,7 @@ class ChatActivity : AppCompatActivity() {
         linkImage = intent?.extras?.getString("linkImageSmall").toString()
         idForum = intent?.extras?.getInt("idForum").toString().toInt()
 
+        forumName.text = intent?.extras?.getString("forumName").toString()
 
         sendMsg.setOnClickListener{
             if (userTexForMsg.text?.isNotEmpty()!!){

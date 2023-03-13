@@ -35,7 +35,7 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
             true
         }
         forumViewHolder.itemView.setOnClickListener{
-            selectForum(forum.id)
+            selectForum(forum.id, forum.name)
         }
     }
 
@@ -71,7 +71,8 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
     /**
      * Select a forum and go to the chat activity
      */
-    private fun selectForum(forumId: Int){
+    private fun selectForum(forumId: Int, forumName: String){
+        Log.e("DEBUG", "forumId: $forumId")
         val sharedP = context.getSharedPreferences("user",
             AppCompatActivity.MODE_PRIVATE
         )
@@ -84,6 +85,7 @@ class ForumAdapter(private var context: Context, private var listOfForum: ArrayL
         intent.putExtra("user", pseudo)
         intent.putExtra("linkImage", linkImage)
         intent.putExtra("linkImageSmall", linkImageSmall)
+        intent.putExtra("forumName", forumName)
         ContextCompat.startActivity(context, intent, null)
     }
 
