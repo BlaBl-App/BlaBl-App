@@ -90,6 +90,7 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
                             Base64.decode(message.profileImage, Base64.NO_WRAP or Base64.URL_SAFE)
                         val bitmap =
                             BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                        Log.e("BITMAP", "$bitmap")
                         if (bitmap != null) {
                             Log.d("ERROR IN BITMAP", "setting image to default")
                             receivedMessageViewHolder.userPicReceiving.setImageBitmap(bitmap)
@@ -97,6 +98,8 @@ class MessageAdapter(private val context: Context, private val listOfMessage: Ar
                     } catch (e: IllegalArgumentException) {
                         Log.d("ERROR LOADING IMAGE", "$e")
                     }
+                }else{
+                    receivedMessageViewHolder.userPicReceiving.setImageResource(R.drawable.defaultpp)
                 }
             }
     }
