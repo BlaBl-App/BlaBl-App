@@ -56,4 +56,8 @@ Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </stri
     <string name="title_home">Accueil</string>
     <string name="profilePic">Photo de profile</string>
     <string name="Blabla_App_logo">BlaBla\'App logo</string>
+    <string name="app" translatable="false">APP</string>
+    <string name="api" translatable="false">API</string>
+    <string name="serveurs">Serveurs</string>
+    <string name="devSource">Développement d\'application</string>
 </resources>

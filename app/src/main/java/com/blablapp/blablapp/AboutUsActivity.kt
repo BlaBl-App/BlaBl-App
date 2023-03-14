@@ -22,6 +22,15 @@ class AboutUsActivity : AppCompatActivity() {
         imageViewQypol342.setOnClickListener{
             navigationToGitHub("qypol342")
         }
+        imageViewBlaBlAppGit.setOnClickListener {
+            navigationToGitHub("BlaBl-App/BlaBl-App")
+        }
+        imageViewAPI.setOnClickListener {
+            navigationToGitHub("BlaBl-App/BlaBl-API")
+        }
+        imageViewListOfServers.setOnClickListener {
+            navigationToGitHub("BlaBl-App/BlaBl-ist")
+        }
 
         iconBackBig.setOnClickListener {
             finish()
