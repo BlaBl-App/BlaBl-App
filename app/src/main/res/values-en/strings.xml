@@ -51,4 +51,7 @@ We are not responsible for the words spoken by the users.
     <string name="send_msg">send message</string>
     <string name="profilePic">Profile pic</string>
     <string name="Blabla_App_logo">BlaBla\'App logo</string>
+
+    <string name="serveurs">Servers</string>
+    <string name="devSource">App development</string>
 </resources>

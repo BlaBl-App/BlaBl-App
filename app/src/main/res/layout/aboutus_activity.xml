@@ -16,59 +16,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs" />
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/autors">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/titre_objectifs"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_bold"
-                android:gravity="center"
-                android:text="@string/titre_objectifs"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/objectifs"
+            android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/objectifs"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="@string/mention_legal"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/mention_legal"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/legal_notices"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/legal_notices"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/aboutUs"
@@ -107,21 +107,23 @@
             android:id="@+id/nabilesall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
             android:text="@string/nabilesall"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/imageViewNabileSall"
+            app:layout_constraintStart_toStartOf="@+id/imageViewNabileSall"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewNabileSall" />
 
         <TextView
             android:id="@+id/qypol342"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
             android:text="@string/qypol342"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/imageViewQypol342"
+            app:layout_constraintStart_toStartOf="@+id/imageViewQypol342"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewQypol342" />
 
         <TextView
             android:id="@+id/icepick4"
@@ -130,30 +132,31 @@
             android:text="@string/icepick4"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/qypol342"
-            app:layout_constraintStart_toEndOf="@+id/nabilesall" />
+            app:layout_constraintEnd_toEndOf="@+id/imageViewIcePick4"
+            app:layout_constraintStart_toStartOf="@+id/imageViewIcePick4"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIcePick4" />
 
         <ImageView
             android:id="@+id/imageViewIcePick4"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:contentDescription="@string/icepick4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageViewQypol342"
             app:layout_constraintStart_toEndOf="@+id/imageViewNabileSall"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:srcCompat="@drawable/icepick4_pp"
-            android:contentDescription="@string/icepick4" />
+            app:srcCompat="@drawable/icepick4_pp" />
 
         <ImageView
             android:id="@+id/imageViewNabileSall"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="50dp"
+            android:contentDescription="@string/nabilesall"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:srcCompat="@drawable/nabilesall_pp"
-            android:contentDescription="@string/nabilesall" />
+            app:srcCompat="@drawable/nabilesall_pp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -194,7 +197,7 @@
             android:id="@+id/iconBackBig"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -203,7 +206,7 @@
                 android:id="@+id/iconBack"
                 android:layout_width="40dp"
                 android:layout_height="53dp"
-                android:contentDescription="back"
+                android:contentDescription="@string/todo"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -213,6 +216,91 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/devSource"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewBlaBlAppGit"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="50dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:srcCompat="@drawable/blablapp_git" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewBlaBlAppGit"
+            app:layout_constraintStart_toStartOf="@+id/imageViewBlaBlAppGit"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBlaBlAppGit" />
+
+        <ImageView
+            android:id="@+id/imageViewAPI"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewListOfServers"
+            app:layout_constraintStart_toEndOf="@+id/imageViewBlaBlAppGit"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:srcCompat="@drawable/blablapi_git" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/api"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewAPI"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAPI"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAPI" />
+
+        <ImageView
+            android:id="@+id/imageViewListOfServers"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="50dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:srcCompat="@drawable/blablapp_list_server" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/serveurs"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewListOfServers"
+            app:layout_constraintStart_toStartOf="@+id/imageViewListOfServers"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewListOfServers" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
