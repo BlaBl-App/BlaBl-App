@@ -1,36 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blueDark">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView5"
-        style="@style/cardviewbtn"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_top_bar"
+        android:padding="10dp"
+        android:scrollbars="none">
 
-        <Button
-            android:id="@+id/buttonTalk"
-            style="@style/buttonpersonnalise"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:text="@string/btn_name" />
+        <ImageView
+            android:id="@+id/iconeBigSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            android:contentDescription="@string/logo_with_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/icbigsize" />
+
+        <ImageView
+            android:id="@+id/iconInfo"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/info_plus"
+            android:src="@drawable/baseline_info_24"
+            app:layout_constraintEnd_toEndOf="@+id/iconeBigSize"
+            tools:layout_editor_absoluteY="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/cardView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        app:cardCornerRadius="30dp">
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/defaultpp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_below="@+id/cardView2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,68 +77,24 @@
                 android:hint="@string/pseudo"
                 android:inputType="textCapSentences"
                 android:maxLength="20" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="150dp"
-        app:cardCornerRadius="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        android:id="@+id/cardView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="15dp">
 
-        <ImageView
-            android:id="@+id/profilePic"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/defaultpp"
-            android:contentDescription="" />
+        <Button
+            android:id="@+id/buttonTalk"
+            style="@style/buttonpersonnalise"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="@string/btn_name" />
     </androidx.cardview.widget.CardView>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="@drawable/background_top_bar"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iconeBigSize"
-            android:layout_width="match_parent"
-
-            android:layout_height="match_parent"
-            android:background="@color/blue"
-            android:contentDescription="Logo with name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@mipmap/icbigsize" />
-
-        <ImageView
-            android:id="@+id/iconInfo"
-            android:layout_width="50dp"
-            android:layout_marginRight="20dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/baseline_info_24"
-
-
-            app:layout_constraintEnd_toEndOf="@+id/iconeBigSize"
-            tools:layout_editor_absoluteY="10dp" />
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

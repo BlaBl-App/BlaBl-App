@@ -60,4 +60,6 @@ Nous ne sommes pas responsables des propos tenus par les utilisateurs.    </stri
     <string name="api" translatable="false">API</string>
     <string name="serveurs">Serveurs</string>
     <string name="devSource">Développement d\'application</string>
+    <string name="logo_with_name">Logo with name</string>
+    <string name="info_plus">info plus</string>
 </resources>
