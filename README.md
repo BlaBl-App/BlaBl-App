@@ -10,8 +10,7 @@
 
 Here is a demo GIF showcasing some of the features of the app:
 
-
-ttps://user-images.githubusercontent.com/37497007/224561383-9ca39b38-8287-4004-94ad-9398f0890cc0.gif" height="400">
+<img src="https://user-images.githubusercontent.com/37497007/224561383-9ca39b38-8287-4004-94ad-9398f0890cc0.gif" height="400">
 
 ## 📷 Screen Show
 
