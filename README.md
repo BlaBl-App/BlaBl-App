@@ -1,5 +1,5 @@
 <div align="center">
-<img width="128" alt="Plugin icon - 1 (1)" src="https://user-images.githubusercontent.com/37497007/222096241-a883f13a-265a-4aa5-9f55-7433888dd8de.png">
+<img width="128" alt="logo" src="https://user-images.githubusercontent.com/37497007/225735853-66a816a9-06cb-4299-a57b-cad3b1a07eb7.png">
 
 <h1>BlaBl'App</h1>
 
@@ -10,7 +10,8 @@
 
 Here is a demo GIF showcasing some of the features of the app:
 
-<img src="https://user-images.githubusercontent.com/37497007/224561383-9ca39b38-8287-4004-94ad-9398f0890cc0.gif" height="400">
+
+ttps://user-images.githubusercontent.com/37497007/224561383-9ca39b38-8287-4004-94ad-9398f0890cc0.gif" height="400">
 
 ## 📷 Screen Show
 
