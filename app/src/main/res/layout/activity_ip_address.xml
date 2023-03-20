@@ -46,7 +46,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+                app:srcCompat="@drawable/baseline_close_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
