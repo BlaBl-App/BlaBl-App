@@ -27,7 +27,7 @@ class ForumActivity : AppCompatActivity() {
 
         addForumButton.setOnClickListener { addForumDialog() }
 
-        changeServerButton.setOnClickListener{
+        layoutSettings.setOnClickListener{
             val intent = Intent(this, ServerConfig::class.java)
             startActivity(intent)
         }
