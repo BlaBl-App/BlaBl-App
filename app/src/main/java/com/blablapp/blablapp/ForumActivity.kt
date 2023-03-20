@@ -30,6 +30,7 @@ class ForumActivity : AppCompatActivity() {
         layoutSettings.setOnClickListener{
             val intent = Intent(this, ServerConfig::class.java)
             startActivity(intent)
+            finish()
         }
         iconBackBig.setOnClickListener {
             finish()

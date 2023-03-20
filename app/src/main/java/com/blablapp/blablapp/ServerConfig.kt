@@ -40,6 +40,7 @@ class ServerConfig : AppCompatActivity() {
             saveDataUser(serverIp, serverPort, spinnerProtolcol.selectedItemPosition)
             val intent = Intent(this, ForumActivity::class.java)
             startActivity(intent)
+            finish()
         }
         iconBackBig.setOnClickListener {
             finish()
