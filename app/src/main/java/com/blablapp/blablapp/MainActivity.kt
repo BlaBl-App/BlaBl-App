@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery()
             } else {
-                Toast.makeText(this, "Permission non accordée", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.permissionDenied, Toast.LENGTH_SHORT).show()
             }
         }
     }
