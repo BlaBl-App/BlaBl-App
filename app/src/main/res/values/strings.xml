@@ -24,6 +24,7 @@
     <string name="protocol">Protocole</string>
     <string name="changeServer">Configuration serveur</string>
     <string name="noConnection">Veuillez vous connecter à internet ou revoyez la configuration serveur</string>
+    <string name="permissionDenied">Permission refusé</string>
     <string name="ip">Adresse IP (default Tchoutchou.ovh)</string>
     <string name="noConnectionTitle">Erreur dans l\'obtention des forums</string>
     <string name="correctIp">Veuillez entrer une adresse IP correcte</string>

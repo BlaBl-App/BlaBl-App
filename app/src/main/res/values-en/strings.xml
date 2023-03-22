@@ -19,6 +19,7 @@
     <string name="enterPort">Port of your server</string>
     <string name="port">Port (5555 by default)</string>
     <string name="protocol">Protocol</string>
+    <string name="permissionDenied">Permission denied</string>
     <string name="changeServer">Server configuration</string>
     <string name="noConnection">Please connect to the internet or change your server configuration</string>
     <string name="noConnectionTitle">Error while loading the forums</string>
