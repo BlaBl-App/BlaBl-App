@@ -81,6 +81,7 @@ class ForumActivity : AppCompatActivity() {
                             alert.setPositiveButton("OK") { _, _ ->
                                 val intent = Intent(this, ServerConfig::class.java)
                                 startActivity(intent)
+                                finish()
                             }
                             alert.show()
                             return@runOnUiThread
